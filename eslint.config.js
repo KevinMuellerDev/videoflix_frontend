@@ -13,9 +13,8 @@ const compat = new FlatCompat({
 const configs = [
   ...compat.extends("next/core-web-vitals"),
   ...compat.extends("next/typescript"),
-  ...compat.extends("plugin:@tanstack/eslint-plugin-query/recommended"),
   ...compat.extends("prettier"),
-  ...compat.plugins("@tanstack/query"),
+
 ]
 
 export default configs
