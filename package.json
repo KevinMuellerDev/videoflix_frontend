@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "test":" "
+    "test": " "
   },
   "dependencies": {
     "next": "15.2.3",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tanstack/eslint-plugin-query": "^5.68.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -24,9 +25,9 @@
     "eslint-config-next": "15.2.3",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.4",
+    "husky": "^8.0.0",
     "prettier": "^3.5.3",
-    "typescript": "^5",
-    "husky": "^8.0.0"
+    "typescript": "^5"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --fix"
