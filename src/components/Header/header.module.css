@@ -1,0 +1,29 @@
+.wrapper{
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 96px;
+}
+
+.wrapperBtn{
+    border: 0;
+    padding: 12px 24px;
+    border-radius: 40px;
+    background-color: #2E3EDF;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.wrapperBtn:hover{
+    cursor: pointer;
+    background-color: #3745e6;
+}
+
+.wrapperBtn:active{
+    background-color: #1c28b0;
+}

@@ -1,4 +1,8 @@
 import React from "react";
 export default function Start() {
-  return <div>hello world</div>;
+  return (
+    <main className="browse-main">
+
+    </main>
+  );
 }

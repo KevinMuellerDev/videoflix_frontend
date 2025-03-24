@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'DM Sans',sans-serif;
+}
+
+.browse-main{
+    background: 
+    linear-gradient(180deg, #000000 -19.89%, rgba(0, 0, 0, 0.55) 40.46%, #000000 100%),
+    url("/start-bg.jpg");
+    object-fit: cover;
+    background-size: cover;
+    height: 100dvh;
+}
