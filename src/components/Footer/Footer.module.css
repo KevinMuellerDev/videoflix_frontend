@@ -1,0 +1,9 @@
+.btmFooter{
+    position: absolute;
+    bottom: 48px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    width: 100%;
+}
