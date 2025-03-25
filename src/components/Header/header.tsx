@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className={styles.wrapper}>
       <img src="/Logo.svg" alt="Videoflix Logo" />
-      <button className={styles.wrapperBtn}>Log in</button>
+      <button className="vfBtn">Log in</button>
     </header>
   );
 };
