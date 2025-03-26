@@ -1,10 +1,16 @@
-.wrapper{
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 96px;
+.wrapper {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 96px;
+}
+
+@media (width <= 550px) {
+  .wrapper {
+    padding: 30px 16px;
+  }
 }
