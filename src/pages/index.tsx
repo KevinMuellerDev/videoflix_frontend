@@ -5,7 +5,8 @@ import useBackground from "@/hooks/useBackground";
 export default function Start() {
   useBackground({ background: "/start-bg.webp" });
 
-  function handleSignUp() {
+  function handleSignUp(event:React.FormEvent) {
+    event.preventDefault();
     return;
   }
 
@@ -14,7 +15,7 @@ export default function Start() {
       <section className={styles.signUpWrapper}>
         <h1>Movies, TV shows, and more</h1>
         <span>Enter your email to create or restart your subscription.</span>
-        <form className={styles.signUpMainForm} action={handleSignUp}>
+        <form className={styles.signUpMainForm} onSubmit={handleSignUp}>
           <input
             className={styles.transTxtField}
             name="email"

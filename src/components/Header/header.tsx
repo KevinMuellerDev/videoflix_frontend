@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "@/components/Header/Header.module.css";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -24,7 +25,10 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.wrapper}>
-      <img className={styles.logo} src="/Logo.svg" alt="Videoflix Logo" />
+      <Link rel="stylesheet" href="/">
+        <img className={styles.logo} src="/Logo.svg" alt="Videoflix Logo" />
+      </Link>
+
       {pathName !== "/login" && (
         <button className="vfBtn" onClick={handleAuth}>
           {!isLoggedIn ? "Log in" : "Log out"}
