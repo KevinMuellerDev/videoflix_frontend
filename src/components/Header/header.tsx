@@ -24,7 +24,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.wrapper}>
-      <img src="/Logo.svg" alt="Videoflix Logo" />
+      <img className={styles.logo} src="/Logo.svg" alt="Videoflix Logo" />
       {pathName !== "/login" && (
         <button className="vfBtn" onClick={handleAuth}>
           {!isLoggedIn ? "Log in" : "Log out"}

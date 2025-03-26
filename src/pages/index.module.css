@@ -1,4 +1,4 @@
-.browseMain {
+.mainContent {
   background:
     linear-gradient(
       180deg,
@@ -6,7 +6,7 @@
       rgba(0, 0, 0, 0.55) 40.46%,
       #000000 100%
     ),
-    url("/start-bg.jpg");
+    var(--background);
   object-fit: cover;
   background-size: cover;
   height: 100dvh;

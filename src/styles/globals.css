@@ -1,3 +1,8 @@
+:root {
+  --background: none;
+  --primary-color: #2e3edf;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -5,6 +10,10 @@
   font-family: "DM Sans", sans-serif;
   color: #ffffff;
   font-size: 100%;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 .vfBtn {
