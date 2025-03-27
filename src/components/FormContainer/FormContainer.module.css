@@ -1,0 +1,11 @@
+.loginContent {
+  background-color: #ffffff;
+  padding: 43px 56px;
+  border-radius: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+}

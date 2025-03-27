@@ -5,7 +5,7 @@ import useBackground from "@/hooks/useBackground";
 export default function Start() {
   useBackground({ background: "/start-bg.webp" });
 
-  function handleSignUp(event:React.FormEvent) {
+  function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
     return;
   }
@@ -22,8 +22,14 @@ export default function Start() {
             type="text"
             placeholder="Email Adress"
             autoComplete="false"
+            aria-label="Email Input"
           />
-          <input className="vfBtn" type="submit" value="Sign up >" />
+          <input
+            className="vfBtn"
+            type="submit"
+            value="Sign up >"
+            aria-label="Submit Email"
+          />
         </form>
       </section>
     </main>

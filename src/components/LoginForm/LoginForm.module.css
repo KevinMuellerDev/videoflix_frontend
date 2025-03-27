@@ -1,0 +1,20 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.loginFormSubContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .loginFormSignUp {
+    display: flex;
+    gap: 24px;
+  }
+}
