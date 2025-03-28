@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/components/LoginForm/LoginForm.module.css";
 import Link from "next/link";
+import useAuth from "@/lib/useAuth";
 
 const LoginForm: React.FC = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  function handleShowPassword() {
+    setShowPassword((prev) => !prev);
+  }
+
   function handleAuth(event: React.FormEvent) {
     event.preventDefault();
-    return;
+    useAuth();
   }
 
   return (
@@ -19,14 +26,22 @@ const LoginForm: React.FC = () => {
           aria-label="Login Email"
           placeholder="Email Address"
         />
-        <input
-          className="standardInputField"
-          type="password"
-          name="password"
-          id="loginPass"
-          aria-label="Login Password"
-          placeholder="Password"
-        />
+        <div className="iconInputField">
+          <input
+            className="blankInputField"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            id="loginPass"
+            aria-label="Login Password"
+            placeholder="Password"
+          />
+          <img
+            className="icon"
+            src={showPassword ? "/icons/hide-pass.png" : "/icons/show-pass.png"}
+            alt={showPassword ? "Hide password" : "Show password"}
+            onClick={handleShowPassword}
+          />
+        </div>
         <input
           className="vfBtn"
           type="submit"

@@ -9,3 +9,9 @@
   width: 100%;
   max-width: 520px;
 }
+
+@media (width<=550px) {
+  .loginContent {
+    padding: 43px 24px;
+  }
+}
