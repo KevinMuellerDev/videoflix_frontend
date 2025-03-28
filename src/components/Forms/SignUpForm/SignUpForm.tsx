@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "@/components/Forms/SignUpForm/SignUpForm.module.css";
+import usePasswordValidation from "@/hooks/usePasswordValidation";
 
 const SignUpForm: React.FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -7,36 +8,19 @@ const SignUpForm: React.FC = () => {
     showConfirmPassword: false,
   });
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const {
+    password,
+    confirmPassword,
+    passwordMatchError,
+    setPassword,
+    setConfirmPassword,
+  } = usePasswordValidation();
 
   function handleTogglePassword(field: "showPassword" | "showConfirmPassword") {
     setPasswordVisibility((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
     }));
-  }
-
-  function handlePassChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setPassword(value);
-    comparePasswords(value, confirmPassword);
-  }
-
-  function handleConfPassChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    setConfirmPassword(value);
-    comparePasswords(password, value);
-  }
-
-  function comparePasswords(
-    passwordValue: string,
-    confirmPasswordValue: string
-  ) {
-    passwordValue !== confirmPasswordValue
-      ? setPasswordMatchError(true)
-      : setPasswordMatchError(false);
   }
 
   return (
@@ -53,7 +37,8 @@ const SignUpForm: React.FC = () => {
         <div className="iconInputField">
           <input
             className="blankInputField"
-            onChange={handlePassChange}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             type={passwordVisibility.showPassword ? "text" : "password"}
             name="password"
             id="loginPass"
@@ -79,7 +64,8 @@ const SignUpForm: React.FC = () => {
           <div className="iconInputField">
             <input
               className="blankInputField"
-              onChange={handleConfPassChange}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
               type={
                 passwordVisibility.showConfirmPassword ? "text" : "password"
               }
