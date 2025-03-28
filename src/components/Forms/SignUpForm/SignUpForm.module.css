@@ -7,9 +7,11 @@
 
   .containerConfirm {
     width: 100%;
+    height: 69px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1rem;
 
     .matchWarning {
       display: flex;

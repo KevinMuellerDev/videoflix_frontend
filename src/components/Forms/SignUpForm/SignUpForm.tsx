@@ -21,16 +21,20 @@ const SignUpForm: React.FC = () => {
   function handlePassChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setPassword(value);
+    comparePasswords(value, confirmPassword);
   }
 
   function handleConfPassChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setConfirmPassword(value);
-    comparePasswords(value);
+    comparePasswords(password, value);
   }
 
-  function comparePasswords(confirmPasswordValue: string) {
-    confirmPasswordValue !== password
+  function comparePasswords(
+    passwordValue: string,
+    confirmPasswordValue: string
+  ) {
+    passwordValue !== confirmPasswordValue
       ? setPasswordMatchError(true)
       : setPasswordMatchError(false);
   }
@@ -106,6 +110,10 @@ const SignUpForm: React.FC = () => {
             </span>
           )}
         </div>
+
+        <button className="vfBtn" type="submit">
+          Get Started
+        </button>
       </form>
     </>
   );
