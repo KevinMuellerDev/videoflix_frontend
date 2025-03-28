@@ -1,0 +1,24 @@
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+
+  .containerConfirm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .matchWarning {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--error-red);
+      max-width: 22.5rem;
+      width: 100%;
+      font-size: 0.875rem;
+    }
+  }
+}

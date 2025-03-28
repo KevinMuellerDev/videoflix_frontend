@@ -26,7 +26,10 @@ const Header: React.FC = () => {
   return (
     <header className={styles.wrapper}>
       <Link rel="stylesheet" href="/">
-        <img className={styles.logo} src="/Logo.svg" alt="Videoflix Logo" />
+        <picture>
+          <source srcSet="/logo-mobile.svg" media="(max-width: 551px)" />
+          <img className={styles.logo} src="/Logo.svg" alt="Videoflix Logo" />
+        </picture>
       </Link>
 
       {pathName !== "/login" && (

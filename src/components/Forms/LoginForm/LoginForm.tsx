@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "@/components/LoginForm/LoginForm.module.css";
+import styles from "@/components/Forms/LoginForm/LoginForm.module.css";
 import Link from "next/link";
 import useAuth from "@/lib/useAuth";
 
@@ -55,7 +55,7 @@ const LoginForm: React.FC = () => {
         </Link>
         <div className={styles.loginFormSignUp}>
           <span className="blackText">New to Videoflix?</span>
-          <Link className="blueLink" href={"/forgotpassword"}>
+          <Link className="blueLink" href={"/signup"}>
             Sign Up now
           </Link>
         </div>

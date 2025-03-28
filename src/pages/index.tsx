@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "@/pages/index.module.css";
 import useBackground from "@/hooks/useBackground";
+import { useRouter } from "next/router";
 
 export default function Start() {
   useBackground({ background: "/start-bg.webp" });
+  const router = useRouter();
 
   function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
+    router.push("/signup");
     return;
   }
 
