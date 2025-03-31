@@ -12,14 +12,13 @@ export default function Start() {
   const { email, setEmail, isValid } = useEmailValidation();
 
   function handleSignUp(event: React.FormEvent) {
-    //TODO: abfrage ob valide, wenn ja dann router.push sonst fliegt banner rein.
     event.preventDefault();
     if (!isValid) {
-      showToast("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+      showToast("Bitte gebe eine richtige Email Adresse ein.");
       return;
     }
+
     router.push("/signup");
-    return;
   }
 
   return (

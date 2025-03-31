@@ -11,17 +11,29 @@ const ToastContext = createContext<IToastContextType | undefined>(undefined);
 
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [message, setMessage] = useState<string | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const showToast = (msg: string) => {
     setMessage(msg);
+    setIsClosing(false);
+
+    setTimeout(() => {
+      setIsClosing(true);
+      setTimeout(() => setMessage(null), 500);
+    }, 3000);
   };
 
-  const hideToast = () => setMessage(null);
+  const hideToast = () => {
+    setIsClosing(true);
+    setTimeout(() => setMessage(null), 500); //
+  };
 
   return (
     <ToastContext.Provider value={{ message, showToast, hideToast }}>
       {children}
-      {message && <Toast message={message} hideToast={hideToast} />}
+      {message && (
+        <Toast message={message} hideToast={hideToast} isClosing={isClosing} />
+      )}
     </ToastContext.Provider>
   );
 }
