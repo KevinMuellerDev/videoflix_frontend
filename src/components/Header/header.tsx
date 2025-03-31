@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     setIsLoggedIn(storedLoginState === "true");
   }, [isLoggedIn]);
 
-  function handleAuth() {
+  function handleLogin() {
     if (isLoggedIn) {
       router.push("/");
       localStorage.setItem("isLoggedIn", "false");
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
       </Link>
 
       {pathName !== "/login" && (
-        <button className="vfBtn" onClick={handleAuth}>
+        <button className="vfBtn" onClick={handleLogin}>
           {!isLoggedIn ? "Log in" : "Log out"}
         </button>
       )}
