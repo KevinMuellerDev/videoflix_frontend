@@ -1,0 +1,41 @@
+.toastContainer {
+  position: absolute;
+  bottom: 100px;
+  left: 20px;
+  max-width: 38.4375rem;
+  background-color: var(--primary-color);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  gap: 16px;
+
+  .redContainer {
+    background-color: var(--error-red);
+    width: 2.375rem;
+    height: 115px;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .contentWidth {
+    max-width: 23.25rem;
+  }
+
+  .divider {
+    height: 2rem;
+    width: 1px;
+    background-color: #ffffff;
+  }
+
+  .close:hover {
+    cursor: pointer;
+    color: #b8b8b8;
+  }
+
+  .close::after {
+    display: inline-block;
+    content: "\00d7";
+    font-size: 1.5rem;
+  }
+}

@@ -15,7 +15,7 @@ export default function Start() {
     //TODO: abfrage ob valide, wenn ja dann router.push sonst fliegt banner rein.
     event.preventDefault();
     if (!isValid) {
-      showToast("warnung");
+      showToast("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
       return;
     }
     router.push("/signup");

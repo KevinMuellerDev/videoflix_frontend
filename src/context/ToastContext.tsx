@@ -1,5 +1,6 @@
+import Toast from "@/components/Toast/Toast";
 import { createContext, useContext, useState, ReactNode } from "react";
-import styles from "@/context/ToastContext.module.css";
+
 interface IToastContextType {
   message: string | null;
   showToast: (message: string) => void;
@@ -20,7 +21,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ message, showToast, hideToast }}>
       {children}
-      {message && <div className={styles.toastContainer}>{message}</div>}
+      {message && <Toast message={message} hideToast={hideToast} />}
     </ToastContext.Provider>
   );
 }
