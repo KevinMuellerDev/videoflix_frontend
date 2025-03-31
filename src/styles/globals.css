@@ -17,6 +17,7 @@
 
 h1 {
   font-size: 3rem;
+  line-height: 100%;
 }
 
 .blueLink {
@@ -113,5 +114,11 @@ h1 {
 
   &:active {
     background-color: var(--primary-active);
+  }
+}
+
+@media (width<=550px) {
+  h1 {
+    font-size: 2.5rem;
   }
 }
