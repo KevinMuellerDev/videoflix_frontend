@@ -61,7 +61,7 @@ export const useFetch = <T>(url: string) => {
  * 3. `error`: a string or null state variable that holds
  */
 export const usePost = <T, R>(url: string) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const postData = async (body: T): Promise<R | void> => {
@@ -98,7 +98,7 @@ export const usePost = <T, R>(url: string) => {
  * 3. `error`: a string or null state variable that holds
  */
 export const useUpdate = <T, R>(url: string, method: "PUT" | "PATCH") => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const updateData = async (body: T): Promise<R | void> => {
@@ -117,4 +117,22 @@ export const useUpdate = <T, R>(url: string, method: "PUT" | "PATCH") => {
     }
   };
   return { updateData, loading, error };
+};
+
+export const useDelete = (url: string) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const deleteData = async (): Promise<void> => {
+    try {
+      const response = await fetch(url, { method: "DELETE" });
+      if (!response.ok)
+        throw new Error(`Fehler: ${response.status} ${response.statusText}`);
+    } catch (error) {
+      if (error instanceof Error) setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { deleteData, loading, error };
 };
