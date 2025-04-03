@@ -119,6 +119,18 @@ export const useUpdate = <T, R>(url: string, method: "PUT" | "PATCH") => {
   return { updateData, loading, error };
 };
 
+/**
+ * The useDelete function is a custom hook that handles sending a DELETE request to a
+ * specified URL and manages loading and error states.
+ * @param {string} url - The `url` parameter is a string that represents
+ * the URL endpoint to which the DELETE request will be sent. This URL specifies the location of the
+ * resource that needs to be deleted when the `deleteData` function is called.
+ * @returns The `useDelete` function returns an object with three properties:
+ * 1. `deleteData`: A function that sends a DELETE request to the specified URL.
+ * 2. `loading`: A boolean state variable that indicates whether the request is currently loading.
+ * 3. `error`: A string or null value that holds any error message encountered during the request
+ * process.
+ */
 export const useDelete = (url: string) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
