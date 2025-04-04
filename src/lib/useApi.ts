@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 interface FetchState<T> {
   data: T | null;
@@ -29,11 +29,11 @@ export const useFetch = <T>(url: string) => {
     const fetchData = async () => {
       try {
         const response: Response = await fetch(url, { signal });
-        if (!response.ok) throw new Error("Fehler beim laden der Daten");
+        if (!response.ok) throw new Error('Fehler beim laden der Daten');
         const result = await response.json();
         setState({ data: result, loading: false, error: null });
       } catch (error) {
-        if (error instanceof Error && error.name !== "AbortError") {
+        if (error instanceof Error && error.name !== 'AbortError') {
           setState({ data: null, loading: false, error: error.message });
         }
       }
@@ -67,8 +67,8 @@ export const usePost = <T, R>(url: string) => {
   const postData = async (body: T): Promise<R | void> => {
     try {
       const response = await fetch(url, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
       if (!response.ok)
@@ -97,7 +97,7 @@ export const usePost = <T, R>(url: string) => {
  * 2. `loading`: a boolean state variable that indicates whether the POST request is currently loading.
  * 3. `error`: a string or null state variable that holds
  */
-export const useUpdate = <T, R>(url: string, method: "PUT" | "PATCH") => {
+export const useUpdate = <T, R>(url: string, method: 'PUT' | 'PATCH') => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -105,7 +105,7 @@ export const useUpdate = <T, R>(url: string, method: "PUT" | "PATCH") => {
     try {
       const response = await fetch(url, {
         method: method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
       if (!response.ok)
@@ -137,7 +137,7 @@ export const useDelete = (url: string) => {
 
   const deleteData = async (): Promise<void> => {
     try {
-      const response = await fetch(url, { method: "DELETE" });
+      const response = await fetch(url, { method: 'DELETE' });
       if (!response.ok)
         throw new Error(`Fehler: ${response.status} ${response.statusText}`);
     } catch (error) {

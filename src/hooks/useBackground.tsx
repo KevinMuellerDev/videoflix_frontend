@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 interface IBackground {
   background: string;
@@ -7,11 +7,11 @@ interface IBackground {
 const useBackground = ({ background }: IBackground) => {
   useEffect(() => {
     document.documentElement.style.setProperty(
-      "--background",
+      '--background',
       `url('${background}')`
     );
     return () => {
-      document.documentElement.style.setProperty("--background", "none");
+      document.documentElement.style.setProperty('--background', 'none');
     };
   }, [background]);
 };

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "@/components/Toast/Toast.module.css";
+import React, { useState } from 'react';
+import styles from '@/components/Toast/Toast.module.css';
 
 interface ToastProps {
   message: string;
@@ -9,7 +9,7 @@ interface ToastProps {
 
 const Toast: React.FC<ToastProps> = ({ message, hideToast, isClosing }) => {
   return (
-    <div className={`${styles.toastContainer} ${isClosing ? styles.hide : ""}`}>
+    <div className={`${styles.toastContainer} ${isClosing ? styles.hide : ''}`}>
       <div className={styles.redContainer} />
       <img src="/icons/ExclamationCircleFill.svg" alt="Warning Icon" />
       <span className={styles.contentWidth}>{message}</span>

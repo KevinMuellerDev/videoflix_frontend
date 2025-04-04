@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styles from "@/components/Forms/SignUpForm/SignUpForm.module.css";
-import usePasswordValidation from "@/hooks/usePasswordValidation";
+import React, { useEffect, useState } from 'react';
+import styles from '@/components/Forms/SignUpForm/SignUpForm.module.css';
+import usePasswordValidation from '@/hooks/usePasswordValidation';
 
 const SignUpForm = ({ email }: { email: string }) => {
   const [emailInput, setEmailInput] = useState(email);
@@ -18,7 +18,7 @@ const SignUpForm = ({ email }: { email: string }) => {
     setConfirmPassword,
   } = usePasswordValidation();
 
-  function handleTogglePassword(field: "showPassword" | "showConfirmPassword") {
+  function handleTogglePassword(field: 'showPassword' | 'showConfirmPassword') {
     setPasswordVisibility((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
@@ -48,7 +48,7 @@ const SignUpForm = ({ email }: { email: string }) => {
             autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            type={passwordVisibility.showPassword ? "text" : "password"}
+            type={passwordVisibility.showPassword ? 'text' : 'password'}
             name="password"
             id="loginPass"
             aria-label="Sign up Password"
@@ -58,15 +58,15 @@ const SignUpForm = ({ email }: { email: string }) => {
             className="icon"
             src={
               passwordVisibility.showPassword
-                ? "/icons/hide-pass.png"
-                : "/icons/show-pass.png"
+                ? '/icons/hide-pass.png'
+                : '/icons/show-pass.png'
             }
             alt={
               passwordVisibility.showPassword
-                ? "Hide password"
-                : "Show password"
+                ? 'Hide password'
+                : 'Show password'
             }
-            onClick={() => handleTogglePassword("showPassword")}
+            onClick={() => handleTogglePassword('showPassword')}
           />
         </div>
         <div className={styles.containerConfirm}>
@@ -77,7 +77,7 @@ const SignUpForm = ({ email }: { email: string }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               type={
-                passwordVisibility.showConfirmPassword ? "text" : "password"
+                passwordVisibility.showConfirmPassword ? 'text' : 'password'
               }
               name="confirmpassword"
               id="loginConfirmPass"
@@ -88,15 +88,15 @@ const SignUpForm = ({ email }: { email: string }) => {
               className="icon"
               src={
                 passwordVisibility.showConfirmPassword
-                  ? "/icons/hide-pass.png"
-                  : "/icons/show-pass.png"
+                  ? '/icons/hide-pass.png'
+                  : '/icons/show-pass.png'
               }
               alt={
                 passwordVisibility.showConfirmPassword
-                  ? "Hide password"
-                  : "Show password"
+                  ? 'Hide password'
+                  : 'Show password'
               }
-              onClick={() => handleTogglePassword("showConfirmPassword")}
+              onClick={() => handleTogglePassword('showConfirmPassword')}
             />
           </div>
           {passwordMatchError && (

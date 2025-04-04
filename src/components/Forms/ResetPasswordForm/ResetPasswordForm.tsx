@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styles from "@/components/Forms/ResetPasswordForm/ResetPasswordForm.module.css";
-import usePasswordValidation from "@/hooks/usePasswordValidation";
-import Link from "next/link";
+import React, { useState } from 'react';
+import styles from '@/components/Forms/ResetPasswordForm/ResetPasswordForm.module.css';
+import usePasswordValidation from '@/hooks/usePasswordValidation';
+import Link from 'next/link';
 
 const ResetPasswordForm: React.FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState({
@@ -16,7 +16,7 @@ const ResetPasswordForm: React.FC = () => {
     setConfirmPassword,
   } = usePasswordValidation();
 
-  function handleTogglePassword(field: "showPassword" | "showConfirmPassword") {
+  function handleTogglePassword(field: 'showPassword' | 'showConfirmPassword') {
     setPasswordVisibility((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
@@ -26,10 +26,10 @@ const ResetPasswordForm: React.FC = () => {
     <>
       <form className={styles.resetPasswordForm}>
         <span className={styles.infoText}>
-          Create a new password for your{" "}
-          <Link className="blueLink" href={"/"}>
+          Create a new password for your{' '}
+          <Link className="blueLink" href={'/'}>
             Videoflix
-          </Link>{" "}
+          </Link>{' '}
           account.
         </span>
         <div className={styles.inputWrapper}>
@@ -38,7 +38,7 @@ const ResetPasswordForm: React.FC = () => {
               className="blankInputField"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              type={passwordVisibility.showPassword ? "text" : "password"}
+              type={passwordVisibility.showPassword ? 'text' : 'password'}
               name="password"
               id="resetPass"
               aria-label="Reset Password"
@@ -48,15 +48,15 @@ const ResetPasswordForm: React.FC = () => {
               className="icon"
               src={
                 passwordVisibility.showPassword
-                  ? "/icons/hide-pass.png"
-                  : "/icons/show-pass.png"
+                  ? '/icons/hide-pass.png'
+                  : '/icons/show-pass.png'
               }
               alt={
                 passwordVisibility.showPassword
-                  ? "Hide password"
-                  : "Show password"
+                  ? 'Hide password'
+                  : 'Show password'
               }
-              onClick={() => handleTogglePassword("showPassword")}
+              onClick={() => handleTogglePassword('showPassword')}
             />
           </div>
           <div className={styles.containerConfirm}>
@@ -66,7 +66,7 @@ const ResetPasswordForm: React.FC = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
                 type={
-                  passwordVisibility.showConfirmPassword ? "text" : "password"
+                  passwordVisibility.showConfirmPassword ? 'text' : 'password'
                 }
                 name="confirmpassword"
                 id="resetConfirmPass"
@@ -77,15 +77,15 @@ const ResetPasswordForm: React.FC = () => {
                 className="icon"
                 src={
                   passwordVisibility.showConfirmPassword
-                    ? "/icons/hide-pass.png"
-                    : "/icons/show-pass.png"
+                    ? '/icons/hide-pass.png'
+                    : '/icons/show-pass.png'
                 }
                 alt={
                   passwordVisibility.showConfirmPassword
-                    ? "Hide password"
-                    : "Show password"
+                    ? 'Hide password'
+                    : 'Show password'
                 }
-                onClick={() => handleTogglePassword("showConfirmPassword")}
+                onClick={() => handleTogglePassword('showConfirmPassword')}
               />
             </div>
             {passwordMatchError && (

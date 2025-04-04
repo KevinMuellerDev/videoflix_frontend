@@ -1,5 +1,5 @@
-import Toast from "@/components/Toast/Toast";
-import { createContext, useContext, useState, ReactNode } from "react";
+import Toast from '@/components/Toast/Toast';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface IToastContextType {
   message: string | null;
@@ -41,7 +41,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 export function useToast() {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
+    throw new Error('useToast must be used within a ToastProvider');
   }
   return context;
 }

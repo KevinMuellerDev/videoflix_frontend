@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import styles from "@/components/Header/Header.module.css";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react';
+import styles from '@/components/Header/Header.module.css';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -9,17 +9,17 @@ const Header: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const storedLoginState = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(storedLoginState === "true");
+    const storedLoginState = localStorage.getItem('isLoggedIn');
+    setIsLoggedIn(storedLoginState === 'true');
   }, [isLoggedIn]);
 
   function handleLogin() {
     if (isLoggedIn) {
-      router.push("/");
-      localStorage.setItem("isLoggedIn", "false");
+      router.push('/');
+      localStorage.setItem('isLoggedIn', 'false');
       setIsLoggedIn(false);
     } else {
-      router.push("/login");
+      router.push('/login');
     }
   }
 
@@ -32,9 +32,9 @@ const Header: React.FC = () => {
         </picture>
       </Link>
 
-      {pathName !== "/login" && (
+      {pathName !== '/login' && (
         <button className="vfBtn" onClick={handleLogin}>
-          {!isLoggedIn ? "Log in" : "Log out"}
+          {!isLoggedIn ? 'Log in' : 'Log out'}
         </button>
       )}
     </header>

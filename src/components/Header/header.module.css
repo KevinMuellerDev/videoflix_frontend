@@ -8,13 +8,11 @@
   align-items: center;
   padding: 30px 96px;
 
-  .logo{
+  .logo {
     padding: 8px 0;
     cursor: pointer;
   }
 }
-
-
 
 @media (width <= 550px) {
   .wrapper {

@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import Link from "next/link";
-import styles from "@/components/Footer/Footer.module.css";
+import React, { FC } from 'react';
+import Link from 'next/link';
+import styles from '@/components/Footer/Footer.module.css';
 
 const Footer: React.FC = () => {
   return (

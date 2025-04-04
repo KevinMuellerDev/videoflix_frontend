@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function usePasswordValidation(
-  initialPassword: string = "",
-  initialConfirmPassword: string = ""
+  initialPassword: string = '',
+  initialConfirmPassword: string = ''
 ) {
   const [password, setPassword] = useState(initialPassword);
   const [confirmPassword, setConfirmPassword] = useState(

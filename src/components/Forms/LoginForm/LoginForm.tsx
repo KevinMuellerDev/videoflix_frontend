@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import styles from "@/components/Forms/LoginForm/LoginForm.module.css";
-import Link from "next/link";
-import useAuth from "@/lib/useAuth";
+import React, { useEffect, useState } from 'react';
+import styles from '@/components/Forms/LoginForm/LoginForm.module.css';
+import Link from 'next/link';
+import useAuth from '@/lib/useAuth';
 
-const LoginForm: React.FC = () => {
+const LoginForm = ({ email }: { email: string }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [emailInput, setEmailInput] = useState(email);
 
   function handleShowPassword() {
     setShowPassword((prev) => !prev);
@@ -15,6 +16,10 @@ const LoginForm: React.FC = () => {
     useAuth();
   }
 
+  useEffect(() => {
+    setEmailInput(email);
+  }, [email]);
+
   return (
     <>
       <form className={styles.loginForm} onSubmit={handleAuth}>
@@ -22,6 +27,8 @@ const LoginForm: React.FC = () => {
           className="standardInputField"
           type="email"
           name="email"
+          value={emailInput}
+          onChange={(e) => setEmailInput(e.target.value)}
           id="loginMail"
           aria-label="Login Email"
           placeholder="Email Address"
@@ -29,7 +36,7 @@ const LoginForm: React.FC = () => {
         <div className="iconInputField">
           <input
             className="blankInputField"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             name="password"
             id="loginPass"
             aria-label="Login Password"
@@ -37,8 +44,8 @@ const LoginForm: React.FC = () => {
           />
           <img
             className="icon"
-            src={showPassword ? "/icons/hide-pass.png" : "/icons/show-pass.png"}
-            alt={showPassword ? "Hide password" : "Show password"}
+            src={showPassword ? '/icons/hide-pass.png' : '/icons/show-pass.png'}
+            alt={showPassword ? 'Hide password' : 'Show password'}
             onClick={handleShowPassword}
           />
         </div>
@@ -50,12 +57,12 @@ const LoginForm: React.FC = () => {
         />
       </form>
       <div className={styles.loginFormSubContainer}>
-        <Link className="blueLink" href={"/forgotpassword"}>
+        <Link className="blueLink" href={'/forgotpassword'}>
           Forgot password?
         </Link>
         <div className={styles.loginFormSignUp}>
           <span className="blackText">New to Videoflix?</span>
-          <Link className="blueLink" href={"/signup"}>
+          <Link className="blueLink" href={'/signup'}>
             Sign Up now
           </Link>
         </div>

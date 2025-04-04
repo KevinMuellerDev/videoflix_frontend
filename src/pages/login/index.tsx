@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
-import useBackground from "@/hooks/useBackground";
-import mainStyles from "@/pages/index.module.css";
-import FormContainer from "@/components/FormContainer/FormContainer";
-import LoginForm from "@/components/Forms/LoginForm/LoginForm";
-import Head from "next/head";
+import React, { useEffect, useState } from 'react';
+import useBackground from '@/hooks/useBackground';
+import mainStyles from '@/pages/index.module.css';
+import FormContainer from '@/components/FormContainer/FormContainer';
+import LoginForm from '@/components/Forms/LoginForm/LoginForm';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const Login: React.FC = () => {
-  useBackground({ background: "/login-bg.webp" });
+  useBackground({ background: '/login-bg.webp' });
+  const [email, setEmail] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.email)
+      setEmail(decodeURIComponent(router.query.email as string));
+  }, [router.query.email]);
 
   return (
     <>
@@ -15,7 +23,7 @@ const Login: React.FC = () => {
       </Head>
       <main className={mainStyles.mainContent}>
         <FormContainer formTitle="Log in">
-          <LoginForm />
+          <LoginForm email={email} />
         </FormContainer>
       </main>
     </>

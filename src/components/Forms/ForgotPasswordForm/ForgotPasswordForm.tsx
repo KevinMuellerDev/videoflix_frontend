@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "@/components/Forms/ForgotPasswordForm/ForgotPasswordForm.module.css";
+import React, { useState } from 'react';
+import styles from '@/components/Forms/ForgotPasswordForm/ForgotPasswordForm.module.css';
 
 const ForgotPasswordForm: React.FC = () => {
   function handleSendMail() {
@@ -22,7 +22,7 @@ const ForgotPasswordForm: React.FC = () => {
         />
         <input
           className="vfBtn"
-          style={{ marginTop: "16px" }}
+          style={{ marginTop: '16px' }}
           type="button"
           value="Send Email"
           aria-label="Send Email to restore password"

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import styles from "@/pages/index.module.css";
-import useBackground from "@/hooks/useBackground";
-import { useEmailValidation } from "@/hooks/useEmailValidation";
-import { useRouter } from "next/router";
-import { useToast } from "@/context/ToastContext";
-import useCheckEmail from "@/hooks/useCheckEmail";
-import Head from "next/head";
+import React, { useEffect, useState } from 'react';
+import styles from '@/pages/index.module.css';
+import useBackground from '@/hooks/useBackground';
+import { useEmailValidation } from '@/hooks/useEmailValidation';
+import { useRouter } from 'next/router';
+import { useToast } from '@/context/ToastContext';
+import useCheckEmail from '@/hooks/useCheckEmail';
+import Head from 'next/head';
 
 export default function Start() {
-  useBackground({ background: "/start-bg.webp" });
+  useBackground({ background: '/start-bg.webp' });
   const router = useRouter();
   const { showToast } = useToast();
   const { email, setEmail, isValid } = useEmailValidation();
@@ -16,13 +16,14 @@ export default function Start() {
   async function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
     if (!isValid) {
-      showToast("Bitte gebe eine richtige Email Adresse ein.");
+      showToast('Bitte gebe eine richtige Email Adresse ein.');
       return;
     }
-    const exists = await useCheckEmail(email) as boolean;
+    const exists = (await useCheckEmail(email)) as boolean;
 
-    exists === true ? router.push("/login") : router.push({ pathname: "/signup", query: { email } })
-
+    exists === true
+      ? router.push({ pathname: '/login', query: { email } })
+      : router.push({ pathname: '/signup', query: { email } });
   }
 
   return (

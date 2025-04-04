@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Imprint = () => {
-  return "Hello Impressum";
+  return 'Hello Impressum';
 };
 
 export default Imprint;
