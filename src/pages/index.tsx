@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/pages/index.module.css";
 import useBackground from "@/hooks/useBackground";
 import { useEmailValidation } from "@/hooks/useEmailValidation";
 import { useRouter } from "next/router";
 import { useToast } from "@/context/ToastContext";
+import useCheckEmail from "@/hooks/useCheckEmail";
 import Head from "next/head";
 
 export default function Start() {
@@ -12,14 +13,16 @@ export default function Start() {
   const { showToast } = useToast();
   const { email, setEmail, isValid } = useEmailValidation();
 
-  function handleSignUp(event: React.FormEvent) {
+  async function handleSignUp(event: React.FormEvent) {
     event.preventDefault();
     if (!isValid) {
       showToast("Bitte gebe eine richtige Email Adresse ein.");
       return;
     }
+    const exists = await useCheckEmail(email) as boolean;
 
-    router.push("/signup");
+    exists===true ? router.push("/login") : router.push("/signup")
+
   }
 
   return (
