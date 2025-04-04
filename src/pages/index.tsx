@@ -21,7 +21,7 @@ export default function Start() {
     }
     const exists = await useCheckEmail(email) as boolean;
 
-    exists===true ? router.push("/login") : router.push("/signup")
+    exists === true ? router.push("/login") : router.push({ pathname: "/signup", query: { email } })
 
   }
 

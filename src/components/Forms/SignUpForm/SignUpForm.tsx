@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/components/Forms/SignUpForm/SignUpForm.module.css";
 import usePasswordValidation from "@/hooks/usePasswordValidation";
 
-const SignUpForm: React.FC = () => {
+const SignUpForm = ({ email }: { email: string }) => {
+  const [emailInput, setEmailInput] = useState(email);
+
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
     showConfirmPassword: false,
@@ -22,14 +24,20 @@ const SignUpForm: React.FC = () => {
       [field]: !prevState[field],
     }));
   }
+  useEffect(() => {
+    setEmailInput(email);
+  }, [email]);
 
   return (
     <>
       <form className={styles.signUpForm}>
         <input
           className="standardInputField"
+          autoComplete="email"
           type="email"
           name="email"
+          value={emailInput}
+          onChange={(e) => setEmailInput(e.target.value)}
           id="loginMail"
           aria-label="Login Email"
           placeholder="Email Address"
@@ -37,6 +45,7 @@ const SignUpForm: React.FC = () => {
         <div className="iconInputField">
           <input
             className="blankInputField"
+            autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             type={passwordVisibility.showPassword ? "text" : "password"}
@@ -64,6 +73,7 @@ const SignUpForm: React.FC = () => {
           <div className="iconInputField">
             <input
               className="blankInputField"
+              autoComplete="new-password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
               type={

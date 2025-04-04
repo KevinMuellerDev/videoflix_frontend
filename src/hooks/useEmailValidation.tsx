@@ -9,7 +9,6 @@ export function useEmailValidation() {
   const validateEmail = (input: string) => {
     setEmail(input);
     setIsValid(emailRegex.test(input));
-    console.log(isValid);
   };
 
   return { email, setEmail: validateEmail, isValid };
