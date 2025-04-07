@@ -13,8 +13,7 @@ export default function Start() {
   const { showToast } = useToast();
   const { email, setEmail, isValid } = useEmailValidation();
 
-  async function handleSignUp(event: React.FormEvent) {
-    event.preventDefault();
+  async function handleSignUp(formData: FormData) {
     if (!isValid) {
       showToast('Bitte gebe eine richtige Email Adresse ein.');
       return;
@@ -35,7 +34,7 @@ export default function Start() {
         <section className={styles.signUpWrapper}>
           <h1>Movies, TV shows, and more</h1>
           <span>Enter your email to create or restart your subscription.</span>
-          <form className={styles.signUpMainForm} onSubmit={handleSignUp}>
+          <form className={styles.signUpMainForm} action={handleSignUp}>
             <input
               className={styles.transTxtField}
               onChange={(e) => setEmail(e.target.value)}
