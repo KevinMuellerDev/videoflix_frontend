@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import styles from '@/components/Forms/ResetPasswordForm/ResetPasswordForm.module.css';
 import usePasswordValidation from '@/hooks/usePasswordValidation';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { resetPasswordConfirm } from '@/lib/useAuth';
+
 
 const ResetPasswordForm: React.FC = () => {
+  const router = useRouter();
+  const {uid,token} = router.query;
+
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
     showConfirmPassword: false,
   });
+
   const {
     password,
     confirmPassword,
@@ -22,6 +29,30 @@ const ResetPasswordForm: React.FC = () => {
       [field]: !prevState[field],
     }));
   }
+
+  //TODO:  Funktionen aufräumen
+
+  async function handleResetPassword() {
+    if (!uid || !token) {
+      alert('Ungültiger Link.');
+      return;
+    }
+  
+    if (password !== confirmPassword) {
+      alert('Die Passwörter stimmen nicht überein.');
+      return;
+    }
+  
+    const result = await resetPasswordConfirm(uid as string, token as string, password);
+  
+    if (result.success) {
+      alert('Passwort erfolgreich zurückgesetzt!');
+      router.push('/login'); 
+    } else {
+      alert(result.message);
+    }
+  }
+
   return (
     <>
       <form className={styles.resetPasswordForm}>
@@ -96,7 +127,7 @@ const ResetPasswordForm: React.FC = () => {
             )}
           </div>
         </div>
-        <input className="vfBtn" type="button" value="Reset my password" />
+        <input className="vfBtn" type="button" value="Reset my password" onClick={handleResetPassword}/>
       </form>
     </>
   );

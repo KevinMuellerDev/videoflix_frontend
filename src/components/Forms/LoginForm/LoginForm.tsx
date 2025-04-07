@@ -2,18 +2,30 @@ import React, { useEffect, useState } from 'react';
 import styles from '@/components/Forms/LoginForm/LoginForm.module.css';
 import Link from 'next/link';
 import useAuth from '@/lib/useAuth';
+import { useRouter } from 'next/router';
+
+//TODO: AUFRÄUMEN DER FUNKTIONEN
 
 const LoginForm = ({ email }: { email: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState(email);
+  const login = useAuth();
+  const router = useRouter();
 
   function handleShowPassword() {
     setShowPassword((prev) => !prev);
   }
 
-  function handleAuth(event: React.FormEvent) {
-    event.preventDefault();
-    useAuth();
+  async function handleAuth(formData:FormData) {
+    const pass =formData.get("password")
+    const result = await login(emailInput, pass as string);
+    if (result.success) {
+      console.log(result);
+      
+      //router.push('/dashboard');  Zielseite nach erfolgreichem Login
+    } else {
+      alert(`Login fehlgeschlagen: ${result.error}`);
+    }
   }
 
   useEffect(() => {
@@ -22,7 +34,7 @@ const LoginForm = ({ email }: { email: string }) => {
 
   return (
     <>
-      <form className={styles.loginForm} onSubmit={handleAuth}>
+      <form className={styles.loginForm} action={handleAuth}>
         <input
           className="standardInputField"
           type="email"
