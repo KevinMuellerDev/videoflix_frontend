@@ -1,0 +1,21 @@
+.actionWrapper {
+  position: absolute;
+  top: 10.625rem;
+  left: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 27.5rem;
+  text-align: start;
+
+  .previewTitle {
+    font-size: 5.5rem;
+    padding-bottom: 16px;
+  }
+}
+
+@media (width<=930px) {
+  .previewTitle {
+    font-size: 3rem !important;
+  }
+}

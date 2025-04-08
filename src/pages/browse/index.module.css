@@ -1,0 +1,12 @@
+.preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .previewContent {
+    width: 100%;
+    max-height: 800px;
+    object-fit: cover;
+  }
+}
