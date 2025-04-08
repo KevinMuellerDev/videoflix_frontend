@@ -1,12 +1,10 @@
 import { API_BASE_URL } from '@/config';
 import React from 'react';
 
-//TODO: REFACTOREN
-
 const useAuth = () => {
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:8000/auth/token/login/', {
+      const response = await fetch(API_BASE_URL + '/auth/token/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,23 +37,26 @@ const useAuth = () => {
   return login;
 };
 
-export async function resetPasswordConfirm(
+const resetPasswordConfirm = async (
   uid: string,
   token: string,
   newPassword: string
-): Promise<{ success: boolean; message: string }> {
+): Promise<{ success: boolean; message: string }> => {
   try {
-    const res = await fetch(`${API_BASE_URL}/auth_app/users/reset_password_confirm/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        uid,
-        token,
-        new_password: newPassword,
-      }),
-    });
+    const res = await fetch(
+      API_BASE_URL + '/auth_app/users/reset_password_confirm/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uid,
+          token,
+          new_password: newPassword,
+        }),
+      }
+    );
 
     if (res.ok) {
       return { success: true, message: 'Password reset successful.' };
@@ -70,6 +71,6 @@ export async function resetPasswordConfirm(
     console.error(error);
     return { success: false, message: 'An unexpected error occurred.' };
   }
-}
+};
 
-export default useAuth;
+export { useAuth, resetPasswordConfirm };

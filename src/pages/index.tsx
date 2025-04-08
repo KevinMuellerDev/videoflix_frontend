@@ -7,13 +7,13 @@ import { useToast } from '@/context/ToastContext';
 import useCheckEmail from '@/hooks/useCheckEmail';
 import Head from 'next/head';
 
-export default function Start() {
+const Start = () => {
   useBackground({ background: '/start-bg.webp' });
   const router = useRouter();
   const { showToast } = useToast();
   const { email, setEmail, isValid } = useEmailValidation();
 
-  async function handleSignUp(formData: FormData) {
+  const handleSignUp = async (formData: FormData) => {
     if (!isValid) {
       showToast('Bitte gebe eine richtige Email Adresse ein.');
       return;
@@ -23,7 +23,7 @@ export default function Start() {
     exists === true
       ? router.push({ pathname: '/login', query: { email } })
       : router.push({ pathname: '/signup', query: { email } });
-  }
+  };
 
   return (
     <>
@@ -56,4 +56,6 @@ export default function Start() {
       </main>
     </>
   );
-}
+};
+
+export default Start;

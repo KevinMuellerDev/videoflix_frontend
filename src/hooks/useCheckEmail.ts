@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React from 'react';
 import { API_CHECK_MAIL_URL } from '@/config';
 
 const useCheckEmail = async (email: string) => {
