@@ -3,6 +3,7 @@ import React from 'react';
 import mainStyles from '@/pages/index.module.css';
 import styles from '@/pages/browse/index.module.css';
 import PreviewAction from '@/components/Browse/PreviewAction/PreviewAction';
+import ContentContainer from '@/components/Browse/ContentContainer/ContentContainer';
 
 const Browse: React.FC = () => {
   const description =
@@ -21,6 +22,7 @@ const Browse: React.FC = () => {
           />
           <PreviewAction title="Breakout" description={description} />
         </div>
+        <ContentContainer genre="New on Videoflix" />
       </main>
     </>
   );

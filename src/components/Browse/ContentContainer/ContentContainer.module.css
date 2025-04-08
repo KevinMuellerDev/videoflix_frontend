@@ -1,0 +1,44 @@
+.contentContainer {
+  z-index: 100;
+  position: absolute;
+  top: 37.5rem;
+  left: 6rem;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 100%;
+}
+
+.dummyVid {
+  width: 213px;
+  height: 120px;
+  transform-origin: bottom center;
+  transition: transform 0.15s ease-in-out;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.vidWrapper {
+  width: calc(100vw - 6rem);
+  height: 140px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  overflow-x: scroll;
+  overflow-y: visible;
+  scroll-behavior: smooth;
+}
+
+.vidWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.genre {
+  font-size: 22px !important;
+}
