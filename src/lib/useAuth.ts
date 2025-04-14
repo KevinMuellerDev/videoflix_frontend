@@ -73,4 +73,74 @@ const resetPasswordConfirm = async (
   }
 };
 
+<<<<<<< Updated upstream
 export { useAuth, resetPasswordConfirm };
+=======
+export async function resetPasswordRequest(
+  email: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth_app/users/reset_password/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (res.ok) {
+      return {
+        success: true,
+        message: 'Reset link sent. Please check your email.',
+      };
+    } else {
+      const data = await res.json();
+      return {
+        success: false,
+        message: data?.email?.[0] || 'Failed to send reset link.',
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: 'An unexpected error occurred.',
+    };
+  }
+}
+
+export async function resetPasswordRequest(
+  email: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/auth_app/users/reset_password/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (res.ok) {
+      return {
+        success: true,
+        message: 'Reset link sent. Please check your email.',
+      };
+    } else {
+      const data = await res.json();
+      return {
+        success: false,
+        message: data?.email?.[0] || 'Failed to send reset link.',
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: 'An unexpected error occurred.',
+    };
+  }
+}
+
+export default useAuth;
+>>>>>>> Stashed changes

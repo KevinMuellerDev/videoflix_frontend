@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import styles from '@/components/Forms/ForgotPasswordForm/ForgotPasswordForm.module.css';
+import { resetPasswordRequest } from '@/lib/useAuth';
+import { useToast } from '@/context/ToastContext';
 
 const ForgotPasswordForm: React.FC = () => {
-  function handleSendMail() {
-    return;
-  }
+  const [email, setEmail] = useState('');
+  const { showToast } = useToast();
+
+  const handleSendMail = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const { success, message } = await resetPasswordRequest(email);
+    showToast(message);
+  };
 
   return (
     <>
@@ -14,16 +22,20 @@ const ForgotPasswordForm: React.FC = () => {
         </span>
         <input
           className="standardInputField"
-          type="text"
-          name="Email"
+          type="email"
+          name="email"
           id="forgotPasswordEmail"
           aria-label="Passwortwiederherstellung Email"
           placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
+
         <input
           className="vfBtn"
           style={{ marginTop: '16px' }}
-          type="button"
+          type="submit"
           value="Send Email"
           aria-label="Send Email to restore password"
         />
