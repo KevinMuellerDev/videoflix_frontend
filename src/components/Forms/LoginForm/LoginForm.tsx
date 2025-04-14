@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/components/Forms/LoginForm/LoginForm.module.css';
 import Link from 'next/link';
-import { useAuth } from '@/lib/useAuth';
 import { useRouter } from 'next/router';
+import { useAuth } from '@/lib/useAuth';
 
 const LoginForm = ({ email }: { email: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState(email);
-  const login = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

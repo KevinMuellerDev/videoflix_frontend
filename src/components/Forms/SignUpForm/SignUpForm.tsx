@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/components/Forms/SignUpForm/SignUpForm.module.css';
 import usePasswordValidation from '@/hooks/usePasswordValidation';
+import { useAuth } from '@/lib/useAuth';
+import { useToast } from '@/context/ToastContext';
 
 const SignUpForm = ({ email }: { email: string }) => {
   const [emailInput, setEmailInput] = useState(email);
@@ -18,6 +20,9 @@ const SignUpForm = ({ email }: { email: string }) => {
     setConfirmPassword,
   } = usePasswordValidation();
 
+  const { signUp } = useAuth();
+  const { showToast } = useToast();
+
   function handleTogglePassword(field: 'showPassword' | 'showConfirmPassword') {
     setPasswordVisibility((prevState) => ({
       ...prevState,
@@ -28,9 +33,27 @@ const SignUpForm = ({ email }: { email: string }) => {
     setEmailInput(email);
   }, [email]);
 
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      showToast('Die Passwörter stimmen nicht überein!');
+      return;
+    }
+
+    // Für dieses Beispiel verwenden wir die E-Mail auch als Username.
+    const result = await signUp(emailInput, password, confirmPassword);
+
+    if (result.success) {
+      showToast('Erfolgreich registriert! Bitte überprüfe deine E-Mails.');
+    } else {
+      showToast(`Registrierung fehlgeschlagen: ${result.error}`);
+    }
+  };
+
   return (
     <>
-      <form className={styles.signUpForm}>
+      <form className={styles.signUpForm} onSubmit={handleSignUp}>
         <input
           className="standardInputField"
           autoComplete="email"

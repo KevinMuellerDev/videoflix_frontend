@@ -5,10 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { resetPasswordConfirm } from '@/lib/useAuth';
 
-
 const ResetPasswordForm: React.FC = () => {
   const router = useRouter();
-  const {uid,token} = router.query;
+  const { uid, token } = router.query;
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
@@ -33,21 +32,15 @@ const ResetPasswordForm: React.FC = () => {
   //TODO:  Funktionen aufräumen
 
   async function handleResetPassword() {
-    if (!uid || !token) {
-      alert('Ungültiger Link.');
-      return;
-    }
-  
-    if (password !== confirmPassword) {
-      alert('Die Passwörter stimmen nicht überein.');
-      return;
-    }
-  
-    const result = await resetPasswordConfirm(uid as string, token as string, password);
-  
+    const result = await resetPasswordConfirm(
+      uid as string,
+      token as string,
+      password
+    );
+
     if (result.success) {
       alert('Passwort erfolgreich zurückgesetzt!');
-      router.push('/login'); 
+      router.push('/login');
     } else {
       alert(result.message);
     }
@@ -127,7 +120,12 @@ const ResetPasswordForm: React.FC = () => {
             )}
           </div>
         </div>
-        <input className="vfBtn" type="button" value="Reset my password" onClick={handleResetPassword}/>
+        <input
+          className="vfBtn"
+          type="button"
+          value="Reset my password"
+          onClick={handleResetPassword}
+        />
       </form>
     </>
   );
