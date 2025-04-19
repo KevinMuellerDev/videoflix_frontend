@@ -1,5 +1,6 @@
 // lib/useAuth.ts
 import { API_BASE_URL } from '@/config';
+import { error } from 'console';
 
 export const useAuth = () => {
   // Login-Funktion
@@ -15,7 +16,7 @@ export const useAuth = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData?.non_field_errors?.[0] || 'Login failed');
+        return { success: false, error: errorData };
       }
 
       const data = await response.json();
@@ -23,12 +24,13 @@ export const useAuth = () => {
 
       // Speichern im localStorage
       localStorage.setItem('token', token);
-      console.log('Login erfolgreich! Token:', token);
-
       return { success: true };
     } catch (error: any) {
-      console.error('Login Fehler:', error.message);
-      return { success: false, error: error.message };
+      console.error('Login Fehler:', error);
+      return {
+        success: false,
+        error: { detail: 'Netzwerkfehler oder Server nicht erreichbar.' }, // Einheitliches Format
+      };
     }
   };
 
@@ -45,14 +47,23 @@ export const useAuth = () => {
           re_password
         }),
       });
+      const data = await response.json();
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData?.detail || 'Sign Up failed');
-      }
+        const [[field, messages]] = Object.entries(data) as [string, string[]][];
+        const messagesArray = Array.isArray(messages)
+          ? (messages as string[])
+          : [String(messages)];
 
-      const data = await response.json();
-      console.log('Sign Up erfolgreich!', data);
+        const errMessage = messagesArray.join('\n \n')
+        console.log(errMessage);
+
+
+        return {
+          success: false,
+          error: errMessage,
+        };
+      }
 
       return { success: true };
     } catch (error: any) {
@@ -66,7 +77,7 @@ export const useAuth = () => {
   // Funktion für die Passwortzurücksetzung
 
 
-  return { login,signUp };
+  return { login, signUp };
 };
 
 export const resetPasswordConfirm = async (uid: string, token: string, newPassword: string) => {

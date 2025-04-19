@@ -3,12 +3,16 @@ import styles from '@/components/Forms/LoginForm/LoginForm.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/lib/useAuth';
+import { useAuthContext } from '@/context/AuthContext';
+import { useToast } from '@/context/ToastContext';
 
 const LoginForm = ({ email }: { email: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState(email);
   const { login } = useAuth();
   const router = useRouter();
+  const { setIsLoggedIn } = useAuthContext();
+  const { showToast } = useToast();
 
   useEffect(() => {
     setEmailInput(email);
@@ -18,10 +22,10 @@ const LoginForm = ({ email }: { email: string }) => {
     const pass = formData.get('password');
     const result = await login(emailInput, pass as string);
     if (result.success) {
-      console.log(result);
-      //router.push('/dashboard');  Zielseite nach erfolgreichem Login
+      setIsLoggedIn(true);
+      router.push('/browse');
     } else {
-      alert(`Login fehlgeschlagen: ${result.error}`);
+      showToast('Login fehlgeschlagen');
     }
   };
 

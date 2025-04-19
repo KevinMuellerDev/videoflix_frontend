@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/components/Header/Header.module.css';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { AuthProvider, useAuthContext } from '@/context/AuthContext';
 
 const Header: React.FC = () => {
   const router = useRouter();
   const pathName = router.pathname;
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const storedLoginState = localStorage.getItem('isLoggedIn');
-    setIsLoggedIn(storedLoginState === 'true');
-  }, [isLoggedIn]);
+  const { isLoggedIn, setIsLoggedIn } = useAuthContext();
 
   function handleLogin() {
     if (isLoggedIn) {
