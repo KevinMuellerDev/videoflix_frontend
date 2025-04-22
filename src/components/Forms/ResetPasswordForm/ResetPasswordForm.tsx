@@ -40,7 +40,8 @@ const ResetPasswordForm: React.FC = () => {
     const result = await resetPasswordConfirm(
       uid as string,
       token as string,
-      password
+      password,
+      confirmPassword
     );
 
     if (result.success) {

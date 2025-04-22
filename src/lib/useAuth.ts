@@ -96,7 +96,8 @@ export const useAuth = () => {
   const resetPasswordConfirm = async (
     uid: string,
     token: string,
-    newPassword: string
+    newPassword: string,
+    confirmPassword: string
   ) => {
     try {
       const res = await fetch(
@@ -108,6 +109,7 @@ export const useAuth = () => {
             uid,
             token,
             new_password: newPassword,
+            confirm_password: confirmPassword,
           }),
         }
       );
