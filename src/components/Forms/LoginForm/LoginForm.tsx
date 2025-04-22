@@ -25,7 +25,7 @@ const LoginForm = ({ email }: { email: string }) => {
       setIsLoggedIn(true);
       router.push('/browse');
     } else {
-      showToast('Login fehlgeschlagen');
+      showToast(result.error as string);
     }
   };
 

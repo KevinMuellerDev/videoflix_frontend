@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-function usePasswordValidation(
+export const usePasswordValidation = (
   initialPassword: string = '',
   initialConfirmPassword: string = ''
-) {
+) => {
   const [password, setPassword] = useState(initialPassword);
   const [confirmPassword, setConfirmPassword] = useState(
     initialConfirmPassword
@@ -25,6 +25,4 @@ function usePasswordValidation(
     setPassword,
     setConfirmPassword,
   };
-}
-
-export default usePasswordValidation;
+};

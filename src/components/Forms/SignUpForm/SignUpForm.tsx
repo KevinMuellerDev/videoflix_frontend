@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/components/Forms/SignUpForm/SignUpForm.module.css';
-import usePasswordValidation from '@/hooks/usePasswordValidation';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
 
@@ -23,12 +23,14 @@ const SignUpForm = ({ email }: { email: string }) => {
   const { signUp } = useAuth();
   const { showToast } = useToast();
 
-  function handleTogglePassword(field: 'showPassword' | 'showConfirmPassword') {
+  const handleTogglePassword = (
+    field: 'showPassword' | 'showConfirmPassword'
+  ) => {
     setPasswordVisibility((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
     }));
-  }
+  };
   useEffect(() => {
     setEmailInput(email);
   }, [email]);

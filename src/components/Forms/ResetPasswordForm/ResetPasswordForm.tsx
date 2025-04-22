@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styles from '@/components/Forms/ResetPasswordForm/ResetPasswordForm.module.css';
-import usePasswordValidation from '@/hooks/usePasswordValidation';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { resetPasswordConfirm } from '@/lib/useAuth';
+import { useAuth } from '@/lib/useAuth';
+import { useToast } from '@/context/ToastContext';
 
 const ResetPasswordForm: React.FC = () => {
   const router = useRouter();
+  const { resetPasswordConfirm } = useAuth();
   const { uid, token } = router.query;
+  const { showToast } = useToast();
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
@@ -22,16 +25,18 @@ const ResetPasswordForm: React.FC = () => {
     setConfirmPassword,
   } = usePasswordValidation();
 
-  function handleTogglePassword(field: 'showPassword' | 'showConfirmPassword') {
+  const handleTogglePassword = (
+    field: 'showPassword' | 'showConfirmPassword'
+  ) => {
     setPasswordVisibility((prevState) => ({
       ...prevState,
       [field]: !prevState[field],
     }));
-  }
+  };
 
   //TODO:  Funktionen aufräumen
 
-  async function handleResetPassword() {
+  const handleResetPassword = async () => {
     const result = await resetPasswordConfirm(
       uid as string,
       token as string,
@@ -39,12 +44,12 @@ const ResetPasswordForm: React.FC = () => {
     );
 
     if (result.success) {
-      alert('Passwort erfolgreich zurückgesetzt!');
+      showToast('Passwort erfolgreich zurückgesetzt!');
       router.push('/login');
     } else {
-      alert(result.message);
+      showToast(result.message);
     }
-  }
+  };
 
   return (
     <>

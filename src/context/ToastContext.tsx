@@ -1,22 +1,31 @@
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 import Toast from '@/components/Toast/Toast';
-import { createContext, useContext, useState, ReactNode } from 'react';
 
-interface IToastContextType {
+type ToastContextType = {
   message: string | null;
   showToast: (message: string) => void;
   hideToast: () => void;
-}
+};
 
-const ToastContext = createContext<IToastContextType | undefined>(undefined);
+const ToastContext = createContext<ToastContextType>({
+  message: null,
+  showToast: () => {},
+  hideToast: () => {},
+});
 
-export function ToastProvider({ children }: { children: ReactNode }) {
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
 
   const showToast = (msg: string) => {
     setMessage(msg);
     setIsClosing(false);
-
     setTimeout(() => {
       setIsClosing(true);
       setTimeout(() => setMessage(null), 500);
@@ -25,7 +34,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
   const hideToast = () => {
     setIsClosing(true);
-    setTimeout(() => setMessage(null), 500); //
+    setTimeout(() => setMessage(null), 500);
   };
 
   return (
@@ -36,12 +45,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       )}
     </ToastContext.Provider>
   );
-}
+};
 
-export function useToast() {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-  return context;
-}
+export const useToast = () => useContext(ToastContext);

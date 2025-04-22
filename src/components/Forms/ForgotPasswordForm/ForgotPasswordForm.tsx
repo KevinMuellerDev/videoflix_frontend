@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import styles from '@/components/Forms/ForgotPasswordForm/ForgotPasswordForm.module.css';
-import { resetPasswordRequest } from '@/lib/useAuth';
+import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
 
 const ForgotPasswordForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const { showToast } = useToast();
+  const { resetPasswordRequest } = useAuth();
 
   const handleSendMail = async (e: React.FormEvent) => {
     e.preventDefault();

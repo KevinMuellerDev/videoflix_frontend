@@ -6,7 +6,7 @@ import Footer from '@/components/Footer/Footer';
 import { ToastProvider } from '@/context/ToastContext';
 import { AuthProvider } from '@/context/AuthContext';
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <AuthProvider>
@@ -18,4 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </AuthProvider>
     </>
   );
-}
+};
+
+export default App;

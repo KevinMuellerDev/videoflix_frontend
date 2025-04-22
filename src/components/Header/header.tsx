@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   const pathName = router.pathname;
   const { isLoggedIn, setIsLoggedIn } = useAuthContext();
 
-  function handleLogin() {
+  const handleLogin = () => {
     if (isLoggedIn) {
       router.push('/');
       localStorage.setItem('isLoggedIn', 'false');
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     } else {
       router.push('/login');
     }
-  }
+  };
 
   return (
     <header className={styles.wrapper}>
