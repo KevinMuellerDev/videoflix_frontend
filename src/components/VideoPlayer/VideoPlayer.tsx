@@ -38,6 +38,16 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
     };
   }, [src]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      playerRef.current?.width(window.innerWidth);
+      playerRef.current?.height(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div data-vjs-player className={styles.videoContainer}>
       <video ref={videoRef} className="video-js vjs-play-centered" />
