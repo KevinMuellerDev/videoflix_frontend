@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import videojs from 'video.js';
-import Player from 'video.js/dist/types/player';
 import 'video.js/dist/video-js.css';
+import 'videojs-contrib-quality-levels';
+import 'videojs-hls-quality-selector';
 import styles from '@/components/VideoPlayer/VideoPlayer.module.css';
 
 interface VideoPlayerProps {
@@ -10,7 +11,7 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playerRef = useRef<Player | undefined>(null);
+  const playerRef = useRef<any>(null);
 
   useEffect(() => {
     if (videoRef.current && !playerRef.current) {
@@ -23,10 +24,16 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
         sources: [
           {
             src,
-            type: 'video/mp4',
-            // type: 'application/x-mpegURL', // <- HLS support
+            type: 'application/x-mpegURL',
           },
         ],
+      });
+
+      playerRef.current.ready(() => {
+        playerRef.current?.hlsQualitySelector({
+          displayCurrentQuality: true,
+        });
+
       });
     }
 
