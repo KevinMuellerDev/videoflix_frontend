@@ -1,7 +1,18 @@
 import React from 'react';
 import styles from '@/components/Browse/ContentContainer/ContentContainer.module.css';
 
-const ContentContainer = ({ genre }: { genre: string }) => {
+interface VideoData {
+  id: number;
+  created_at: string;
+  title: string;
+  description: string;
+  video_file: string;
+  genre: string;
+  screenshot: string;
+  trailer: string;
+}
+
+const ContentContainer = ({ data }: { data: VideoData }) => {
   const dummyVid = [
     { id: 1, title: 'Action', background: '#FF5733' },
     { id: 2, title: 'Action', background: '#FF5733' },
@@ -13,13 +24,13 @@ const ContentContainer = ({ genre }: { genre: string }) => {
 
   return (
     <div className={styles.contentContainer}>
-      <span className={styles.genre}>{genre}</span>
+      <span className={styles.genre}>{data.genre}</span>
       <div className={styles.vidWrapper}>
         {dummyVid.map((vid) => (
           <div
             className={styles.dummyVid}
             key={vid.id}
-            style={{ background: vid.background }}
+            style={{ backgroundImage: `url(${data.screenshot})` }}
           ></div>
         ))}
       </div>

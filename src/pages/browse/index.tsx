@@ -60,7 +60,7 @@ const Browse: React.FC = () => {
         </div>
         <div className={styles.contentContainer}>
           {testData.map((data) => (
-            <ContentContainer genre={data.genre} />
+            <ContentContainer data={data} />
           ))}
         </div>
       </main>

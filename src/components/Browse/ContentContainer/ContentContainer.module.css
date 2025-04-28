@@ -13,6 +13,7 @@
   transition: transform 0.15s ease-in-out;
   cursor: pointer;
   flex-shrink: 0;
+  background-size: cover;
 
   &:hover {
     transform: scale(1.05);
