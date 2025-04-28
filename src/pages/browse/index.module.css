@@ -10,3 +10,8 @@
     object-fit: cover;
   }
 }
+
+.contentContainer {
+  z-index: 100;
+  padding-top: 37.5rem;
+}

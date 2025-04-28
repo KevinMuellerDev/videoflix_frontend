@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import Toast from '@/components/Toast/Toast';
 
 type ToastContextType = {

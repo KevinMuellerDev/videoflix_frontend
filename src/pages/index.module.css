@@ -20,12 +20,11 @@
 .browseContent {
   background: #000000;
   background-size: cover;
-  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 16px;
+  padding: 0 16px 36px;
 }
 
 .signUpWrapper {
