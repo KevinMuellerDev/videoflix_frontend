@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import styles from '@/components/Browse/ContentContainer/ContentContainer.module.css';
 
 interface VideoData {
@@ -12,7 +13,15 @@ interface VideoData {
   trailer: string;
 }
 
-const ContentContainer = ({ data }: { data: VideoData }) => {
+interface ContentContainerProps {
+  data: VideoData[];
+  genre: string;
+}
+
+const ContentContainer = ({ data, genre }: ContentContainerProps) => {
+  const filteredVideos = data.filter((video) => video.genre === genre);
+  const router = useRouter();
+
   const dummyVid = [
     { id: 1, title: 'Action', background: '#FF5733' },
     { id: 2, title: 'Action', background: '#FF5733' },
@@ -22,16 +31,24 @@ const ContentContainer = ({ data }: { data: VideoData }) => {
     { id: 6, title: 'Horror', background: '#000000' },
   ];
 
+  const redirectToVideo = (url: string) => {
+    router.push(`/videopage?src=${url}`);
+    return;
+  };
+
   return (
     <div className={styles.contentContainer}>
-      <span className={styles.genre}>{data.genre}</span>
+      <span className={styles.genre}>{genre}</span>
       <div className={styles.vidWrapper}>
-        {dummyVid.map((vid) => (
+        {filteredVideos.map((vid) => (
           <div
             className={styles.dummyVid}
             key={vid.id}
-            style={{ backgroundImage: `url(${data.screenshot})` }}
-          ></div>
+            style={{ backgroundImage: `url(${vid.screenshot})` }}
+            onClick={() => redirectToVideo(vid.video_file)}
+          >
+            {vid.title}
+          </div>
         ))}
       </div>
     </div>

@@ -6,41 +6,47 @@ import 'videojs-hls-quality-selector';
 import styles from '@/components/VideoPlayer/VideoPlayer.module.css';
 
 interface VideoPlayerProps {
-  src: string;
+  src: string | null;
 }
 
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
 
   useEffect(() => {
-    if (videoRef.current && !playerRef.current) {
-      playerRef.current = videojs(videoRef.current, {
-        controls: true,
-        autoplay: false,
-        preload: 'auto',
-        width: window.innerWidth,
-        height: window.innerHeight,
-        sources: [
-          {
-            src,
-            type: 'application/x-mpegURL',
-          },
-        ],
-      });
+    if (!src) return;
 
-      playerRef.current.ready(() => {
-        playerRef.current?.hlsQualitySelector({
-          displayCurrentQuality: true,
+    // Initialisierung verzögert, um sicherzustellen, dass das Video im DOM ist
+    const setupPlayer = () => {
+      if (videoRef.current && !playerRef.current) {
+        playerRef.current = videojs(videoRef.current, {
+          controls: true,
+          autoplay: false,
+          preload: 'auto',
+          width: window.innerWidth,
+          height: window.innerHeight,
+          sources: [
+            {
+              src,
+              type: 'video/mp4',
+            },
+          ],
         });
 
-      });
-    }
+        playerRef.current.ready(() => {
+          playerRef.current?.hlsQualitySelector?.({
+            displayCurrentQuality: true,
+          });
+        });
+      }
+    };
+
+    requestAnimationFrame(setupPlayer);
 
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
-        playerRef.current = undefined;
+        playerRef.current = null;
       }
     };
   }, [src]);
@@ -57,7 +63,14 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
 
   return (
     <div data-vjs-player className={styles.videoContainer}>
-      <video ref={videoRef} className="video-js vjs-play-centered" />
+      {src && (
+        <video
+          ref={videoRef}
+          controls
+          playsInline
+          className="video-js vjs-play-centered"
+        />
+      )}
     </div>
   );
 };
