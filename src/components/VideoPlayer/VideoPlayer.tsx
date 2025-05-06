@@ -62,7 +62,7 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
   }, []);
 
   return (
-    <div data-vjs-player className={styles.videoContainer}>
+    <div data-vjs-player>
       {src && (
         <video
           ref={videoRef}

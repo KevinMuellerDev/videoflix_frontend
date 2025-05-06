@@ -1,0 +1,18 @@
+.background {
+  height: 100dvh;
+  width: 100%;
+  background-color: black;
+  background-size: cover;
+}
+
+.returnArrow {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  cursor: pointer;
+  z-index: 9999;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
