@@ -15,3 +15,9 @@
   z-index: 100;
   padding-top: 37.5rem;
 }
+
+@media (width<=932px) {
+  .contentContainer {
+    padding-top: 26.5rem;
+  }
+}

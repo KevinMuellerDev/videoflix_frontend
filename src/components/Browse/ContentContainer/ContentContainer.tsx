@@ -38,7 +38,7 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
               const video = e.currentTarget.querySelector('video');
               if (video) {
                 video.currentTime = 0;
-                video.style.opacity = '1'; // Video einblenden
+                video.style.opacity = '1';
                 video.play();
               }
             }}
@@ -46,7 +46,7 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
               const video = e.currentTarget.querySelector('video');
               if (video) {
                 video.pause();
-                video.style.opacity = '0'; // Video ausblenden
+                video.style.opacity = '0';
               }
             }}
             onClick={() => redirectToVideo(vid.video_file)}
@@ -69,7 +69,7 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
               src={vid.video_file}
               muted
               loop
-              className={styles.hoverVideo} // Referenziert die CSS-Klasse mit Transition
+              className={styles.hoverVideo}
             />
             {vid.title}
           </div>

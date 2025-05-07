@@ -25,6 +25,7 @@
   align-items: center;
   text-align: center;
   padding: 0 16px 36px;
+  min-height: 100dvh;
 }
 
 .signUpWrapper {
