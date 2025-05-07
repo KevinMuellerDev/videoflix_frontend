@@ -22,18 +22,8 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
   const filteredVideos = data.filter((video) => video.genre === genre);
   const router = useRouter();
 
-  const dummyVid = [
-    { id: 1, title: 'Action', background: '#FF5733' },
-    { id: 2, title: 'Action', background: '#FF5733' },
-    { id: 3, title: 'Comedy', background: '#33FF57' },
-    { id: 4, title: 'Drama', background: '#3357FF' },
-    { id: 5, title: 'Sci-Fi', background: '#FF33A1' },
-    { id: 6, title: 'Horror', background: '#000000' },
-  ];
-
   const redirectToVideo = (url: string) => {
     router.push(`/videopage?src=${url}`);
-    return;
   };
 
   return (
@@ -44,9 +34,43 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
           <div
             className={styles.dummyVid}
             key={vid.id}
-            style={{ backgroundImage: `url(${vid.screenshot})` }}
+            onMouseEnter={(e) => {
+              const video = e.currentTarget.querySelector('video');
+              if (video) {
+                video.currentTime = 0;
+                video.style.opacity = '1'; // Video einblenden
+                video.play();
+              }
+            }}
+            onMouseLeave={(e) => {
+              const video = e.currentTarget.querySelector('video');
+              if (video) {
+                video.pause();
+                video.style.opacity = '0'; // Video ausblenden
+              }
+            }}
             onClick={() => redirectToVideo(vid.video_file)}
+            style={{ position: 'relative', overflow: 'hidden' }}
           >
+            {/* Hintergrundbild */}
+            <img
+              src={vid.screenshot}
+              alt={vid.title}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+
+            {/* Video-Element */}
+            <video
+              src={vid.video_file}
+              muted
+              loop
+              className={styles.hoverVideo} // Referenziert die CSS-Klasse mit Transition
+            />
             {vid.title}
           </div>
         ))}
