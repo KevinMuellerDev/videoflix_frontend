@@ -10,14 +10,15 @@ import { useRouter } from 'next/router';
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
   const hideOnVideoPage = router.pathname.includes('/videopage');
+  const hideOnActivate = router.pathname.includes('/activate');
 
   return (
     <>
       <AuthProvider>
         <ToastProvider>
-          {!hideOnVideoPage && <Header />}
+          {!(hideOnVideoPage || hideOnActivate) && <Header />}
           <Component {...pageProps} />
-          {!hideOnVideoPage && <Footer />}
+          {!hideOnVideoPage  && <Footer />}
         </ToastProvider>
       </AuthProvider>
     </>
