@@ -52,9 +52,15 @@
   width: 100%;
   gap: 1rem;
 
-  .transTxtField {
-    background-color: transparent;
-    border: 1px solid #ffffff;
+  .transTxtField,
+  .transTxtField:-webkit-autofill,
+  .transTxtField:-webkit-autofill:hover,
+  .transTxtField:-webkit-autofill:focus,
+  .transTxtField:-webkit-autofill:active {
+    transition: background-color 5000000s ease-in-out 0s;
+    background-color: #1c1a20cc;
+    -webkit-text-fill-color: var(--utility-white) !important;
+    border: 1px solid var(--utility-white);
     border-radius: 40px;
     padding: 12px 24px;
     width: 100%;
@@ -62,7 +68,7 @@
     font-size: 1rem;
 
     &::placeholder {
-      color: #ffffff;
+      color: var(--utility-white);
       font-size: 1rem;
     }
   }

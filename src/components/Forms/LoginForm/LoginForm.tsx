@@ -5,18 +5,27 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/lib/useAuth';
 import { useAuthContext } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
+import { useEmailValidation } from '@/hooks/useEmailValidation';
 
-const LoginForm = ({ email }: { email: string }) => {
+const LoginForm = ({ emailInput }: { emailInput: string }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [emailInput, setEmailInput] = useState(email);
+  const { email, setEmail, isValid } = useEmailValidation();
+  const [password, setPassword] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
   const { setIsLoggedIn } = useAuthContext();
   const { showToast } = useToast();
 
   useEffect(() => {
-    setEmailInput(email);
+    setEmail(email);
   }, [email]);
+
+  useEffect(() => {
+    setIsFormValid(!!isValid && password.length > 4);
+    console.log(isValid);
+    console.log(password.length);
+  }, [isValid, password]);
 
   const handleAuth = async (formData: FormData) => {
     const pass = formData.get('password');
@@ -36,20 +45,25 @@ const LoginForm = ({ email }: { email: string }) => {
   return (
     <>
       <form className={styles.loginForm} action={handleAuth}>
-        <input
-          className="standardInputField"
-          type="email"
-          name="email"
-          value={emailInput}
-          onChange={(e) => setEmailInput(e.target.value)}
-          id="loginMail"
-          aria-label="Login Email"
-          placeholder="Email Address"
-        />
         <div className="iconInputField">
+          <img src="/icons/mail.png" alt="Email input" />
+          <input
+            className="blankInputField"
+            type="email"
+            name="email"
+            value={emailInput}
+            onChange={(e) => setEmail(e.target.value)}
+            id="loginMail"
+            aria-label="Login Email"
+            placeholder="Email Address"
+          />
+        </div>
+        <div className="iconInputField">
+          <img src="/icons/password.png" alt="Password input" />
           <input
             className="blankInputField"
             type={showPassword ? 'text' : 'password'}
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             id="loginPass"
             aria-label="Login Password"
@@ -64,18 +78,24 @@ const LoginForm = ({ email }: { email: string }) => {
         </div>
         <input
           className="vfBtn"
+          style={{
+            backgroundColor: isFormValid ? '#2e3edf' : '#888',
+            cursor: isFormValid ? 'pointer' : 'not-allowed',
+            opacity: isFormValid ? 1 : 0.6,
+          }}
           type="submit"
+          disabled={!isFormValid}
           value="Log in"
           aria-label="Submit Login"
         />
       </form>
       <div className={styles.loginFormSubContainer}>
-        <Link className="blueLink" href={'/forgotpassword'}>
+        <Link className="whiteLink" href={'/forgotpassword'}>
           Forgot password?
         </Link>
         <div className={styles.loginFormSignUp}>
-          <span className="blackText">New to Videoflix?</span>
-          <Link className="blueLink" href={'/signup'}>
+          <span className="whiteText">New to Videoflix?</span>
+          <Link className="whiteLink" href={'/signup'}>
             Sign Up now
           </Link>
         </div>

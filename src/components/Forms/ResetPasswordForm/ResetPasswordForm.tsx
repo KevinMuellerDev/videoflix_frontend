@@ -57,13 +57,14 @@ const ResetPasswordForm: React.FC = () => {
       <form className={styles.resetPasswordForm}>
         <span className={styles.infoText}>
           Create a new password for your{' '}
-          <Link className="blueLink" href={'/'}>
+          <Link className="whiteLink" href={'/'}>
             Videoflix
           </Link>{' '}
           account.
         </span>
         <div className={styles.inputWrapper}>
           <div className="iconInputField">
+            <img src="/icons/mail.png" alt="Email input" />
             <input
               className="blankInputField"
               onChange={(e) => setPassword(e.target.value)}
@@ -91,6 +92,7 @@ const ResetPasswordForm: React.FC = () => {
           </div>
           <div className={styles.containerConfirm}>
             <div className="iconInputField">
+              <img src="/icons/password.png" alt="Password input" />
               <input
                 className="blankInputField"
                 onChange={(e) => setConfirmPassword(e.target.value)}

@@ -4,7 +4,7 @@ import useBackground from '@/hooks/useBackground';
 import { useEmailValidation } from '@/hooks/useEmailValidation';
 import { useRouter } from 'next/router';
 import { useToast } from '@/context/ToastContext';
-import useCheckEmail from '@/hooks/useCheckEmail';
+import { useCheckEmail } from '@/hooks/useCheckEmail';
 import Head from 'next/head';
 
 const Start = () => {

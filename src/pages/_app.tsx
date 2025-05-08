@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <ToastProvider>
           {!(hideOnVideoPage || hideOnActivate) && <Header />}
           <Component {...pageProps} />
-          {!hideOnVideoPage  && <Footer />}
+          {!hideOnVideoPage && <Footer />}
         </ToastProvider>
       </AuthProvider>
     </>

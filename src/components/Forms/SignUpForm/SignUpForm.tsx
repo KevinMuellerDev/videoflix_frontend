@@ -3,9 +3,11 @@ import styles from '@/components/Forms/SignUpForm/SignUpForm.module.css';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
+import { useEmailValidation } from '@/hooks/useEmailValidation';
 
-const SignUpForm = ({ email }: { email: string }) => {
-  const [emailInput, setEmailInput] = useState(email);
+const SignUpForm = ({ emailInput }: { emailInput: string }) => {
+  const { email, setEmail, isValid } = useEmailValidation();
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
@@ -31,9 +33,19 @@ const SignUpForm = ({ email }: { email: string }) => {
       [field]: !prevState[field],
     }));
   };
+
   useEffect(() => {
-    setEmailInput(email);
+    setEmail(email);
   }, [email]);
+
+  useEffect(() => {
+    setIsFormValid(
+      !!isValid &&
+        password.length > 0 &&
+        confirmPassword.length > 0 &&
+        !passwordMatchError
+    );
+  }, [isValid, password, confirmPassword, passwordMatchError]);
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +55,6 @@ const SignUpForm = ({ email }: { email: string }) => {
       return;
     }
 
-    // Für dieses Beispiel verwenden wir die E-Mail auch als Username.
     const result = await signUp(emailInput, password, confirmPassword);
 
     if (result.success) {
@@ -56,18 +67,22 @@ const SignUpForm = ({ email }: { email: string }) => {
   return (
     <>
       <form className={styles.signUpForm} onSubmit={handleSignUp}>
-        <input
-          className="standardInputField"
-          autoComplete="email"
-          type="email"
-          name="email"
-          value={emailInput}
-          onChange={(e) => setEmailInput(e.target.value)}
-          id="loginMail"
-          aria-label="Login Email"
-          placeholder="Email Address"
-        />
         <div className="iconInputField">
+          <img src="/icons/mail.png" alt="Email input" />
+          <input
+            className="blankInputField"
+            autoComplete="email"
+            type="email"
+            name="email"
+            value={emailInput}
+            onChange={(e) => setEmail(e.target.value)}
+            id="loginMail"
+            aria-label="Login Email"
+            placeholder="Email Address"
+          />
+        </div>
+        <div className="iconInputField">
+          <img src="/icons/password.png" alt="Password input" />
           <input
             className="blankInputField"
             autoComplete="new-password"
@@ -96,6 +111,7 @@ const SignUpForm = ({ email }: { email: string }) => {
         </div>
         <div className={styles.containerConfirm}>
           <div className="iconInputField">
+            <img src="/icons/password.png" alt="Confirm Password input" />
             <input
               className="blankInputField"
               autoComplete="new-password"
@@ -132,7 +148,16 @@ const SignUpForm = ({ email }: { email: string }) => {
           )}
         </div>
 
-        <button className="vfBtn" type="submit">
+        <button
+          className="vfBtn"
+          style={{
+            backgroundColor: isFormValid ? '#2e3edf' : '#888',
+            cursor: isFormValid ? 'pointer' : 'not-allowed',
+            opacity: isFormValid ? 1 : 0.6,
+          }}
+          type="submit"
+          disabled={!isFormValid}
+        >
           Get Started
         </button>
       </form>

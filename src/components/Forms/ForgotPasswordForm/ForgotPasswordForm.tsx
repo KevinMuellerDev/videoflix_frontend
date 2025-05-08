@@ -2,11 +2,12 @@ import React, { use, useState } from 'react';
 import styles from '@/components/Forms/ForgotPasswordForm/ForgotPasswordForm.module.css';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
+import { useEmailValidation } from '@/hooks/useEmailValidation';
 
 const ForgotPasswordForm: React.FC = () => {
-  const [email, setEmail] = useState('');
   const { showToast } = useToast();
   const { resetPasswordRequest } = useAuth();
+  const { email, setEmail, isValid } = useEmailValidation();
 
   const handleSendMail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,24 +22,33 @@ const ForgotPasswordForm: React.FC = () => {
         <span className={styles.infoText}>
           We will send you an email with instructions to reset your password.
         </span>
-        <input
-          className="standardInputField"
-          type="email"
-          name="email"
-          id="forgotPasswordEmail"
-          aria-label="Passwortwiederherstellung Email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div className="iconInputField">
+          <img src="/icons/mail.png" alt="Email input" />
+          <input
+            className="blankInputField"
+            type="email"
+            name="email"
+            id="forgotPasswordEmail"
+            aria-label="Passwortwiederherstellung Email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
         <input
           className="vfBtn"
-          style={{ marginTop: '16px' }}
+          style={{
+            marginTop: '16px',
+            backgroundColor: isValid ? '#2e3edf' : '#888',
+            cursor: isValid ? 'pointer' : 'not-allowed',
+            opacity: isValid ? 1 : 0.6,
+          }}
           type="submit"
           value="Send Email"
           aria-label="Send Email to restore password"
+          disabled={!isValid}
         />
       </form>
     </>
