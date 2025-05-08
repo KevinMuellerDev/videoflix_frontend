@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 const PreviewAction = ({
   title,
   description,
+  trailer,
 }: {
   title: string;
   description: string;
+  trailer: string;
 }) => {
   const router = useRouter();
   const redirectToVideo = (url: string) => {
@@ -18,7 +20,7 @@ const PreviewAction = ({
     <div className={styles.actionWrapper}>
       <h1 className={styles.previewTitle}>{title}</h1>
       <span>{description}</span>
-      <button className="vfBtn btnFix" onClick={() => redirectToVideo}>
+      <button className="vfBtn btnFix" onClick={() => redirectToVideo(trailer)}>
         <img src="/icons/play-arrow.png" />
         Play
       </button>

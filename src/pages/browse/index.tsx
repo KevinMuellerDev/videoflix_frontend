@@ -58,7 +58,11 @@ const Browse: React.FC = () => {
             src="/dummypreview.png"
             alt="preview"
           />
-          <PreviewAction title="Breakout" description={description} />
+          <PreviewAction
+            title="Breakout"
+            description={description}
+            trailer={'/268290_tiny.mp4'}
+          />
         </div>
         <div className={styles.contentContainer}>
           {uniqueGenres.map((genre) => (
