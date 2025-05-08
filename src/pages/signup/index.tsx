@@ -23,8 +23,7 @@ const SignUp: React.FC = () => {
       </Head>
       <main className={mainStyles.mainContent}>
         <FormContainer formTitle="Sign Up">
-          {email}
-          <SignUpForm email={email} />
+          <SignUpForm emailInput={email} />
         </FormContainer>
       </main>
     </>

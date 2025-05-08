@@ -35,8 +35,10 @@ const SignUpForm = ({ emailInput }: { emailInput: string }) => {
   };
 
   useEffect(() => {
-    setEmail(email);
-  }, [email]);
+    if (emailInput && email === '') {
+      setEmail(emailInput); // Nur setzen, wenn die Email noch leer ist
+    }
+  }, [emailInput, email, setEmail]);
 
   useEffect(() => {
     setIsFormValid(
@@ -55,7 +57,7 @@ const SignUpForm = ({ emailInput }: { emailInput: string }) => {
       return;
     }
 
-    const result = await signUp(emailInput, password, confirmPassword);
+    const result = await signUp(email, password, confirmPassword);
 
     if (result.success) {
       showToast('Erfolgreich registriert! Bitte überprüfe deine E-Mails.');
@@ -74,7 +76,7 @@ const SignUpForm = ({ emailInput }: { emailInput: string }) => {
             autoComplete="email"
             type="email"
             name="email"
-            value={emailInput}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="loginMail"
             aria-label="Login Email"

@@ -25,6 +25,18 @@ const ResetPasswordForm: React.FC = () => {
     setConfirmPassword,
   } = usePasswordValidation();
 
+  const isButtonDisabled = (
+    passwordMatchError: boolean,
+    password: string,
+    confirmPassword: string
+  ) => passwordMatchError || password.length < 4 || confirmPassword.length < 4;
+
+  const getButtonStyle = (isDisabled: boolean) => ({
+    backgroundColor: isDisabled ? '#888' : '#2e3edf',
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    opacity: isDisabled ? 0.6 : 1,
+  });
+
   const handleTogglePassword = (
     field: 'showPassword' | 'showConfirmPassword'
   ) => {
@@ -34,9 +46,8 @@ const ResetPasswordForm: React.FC = () => {
     }));
   };
 
-  //TODO:  Funktionen aufräumen
-
-  const handleResetPassword = async () => {
+  const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const result = await resetPasswordConfirm(
       uid as string,
       token as string,
@@ -46,7 +57,9 @@ const ResetPasswordForm: React.FC = () => {
 
     if (result.success) {
       showToast('Passwort erfolgreich zurückgesetzt!');
-      router.push('/login');
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
     } else {
       showToast(result.message);
     }
@@ -54,7 +67,7 @@ const ResetPasswordForm: React.FC = () => {
 
   return (
     <>
-      <form className={styles.resetPasswordForm}>
+      <form className={styles.resetPasswordForm} onSubmit={handleResetPassword}>
         <span className={styles.infoText}>
           Create a new password for your{' '}
           <Link className="whiteLink" href={'/'}>
@@ -130,9 +143,16 @@ const ResetPasswordForm: React.FC = () => {
         </div>
         <input
           className="vfBtn"
-          type="button"
+          type="submit"
           value="Reset my password"
-          onClick={handleResetPassword}
+          disabled={isButtonDisabled(
+            passwordMatchError,
+            password,
+            confirmPassword
+          )}
+          style={getButtonStyle(
+            isButtonDisabled(passwordMatchError, password, confirmPassword)
+          )}
         />
       </form>
     </>

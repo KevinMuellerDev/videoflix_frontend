@@ -23,8 +23,6 @@ const LoginForm = ({ emailInput }: { emailInput: string }) => {
 
   useEffect(() => {
     setIsFormValid(!!isValid && password.length > 4);
-    console.log(isValid);
-    console.log(password.length);
   }, [isValid, password]);
 
   const handleAuth = async (formData: FormData) => {
