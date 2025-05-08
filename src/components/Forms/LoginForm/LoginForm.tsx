@@ -27,7 +27,9 @@ const LoginForm = ({ emailInput }: { emailInput: string }) => {
 
   const handleAuth = async (formData: FormData) => {
     const pass = formData.get('password');
-    const result = await login(emailInput, pass as string);
+    const result = await login(email, pass as string);
+    console.log();
+
     if (result.success) {
       setIsLoggedIn(true);
       router.push('/browse');

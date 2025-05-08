@@ -19,6 +19,7 @@ const Start = () => {
       return;
     }
     const exists = (await useCheckEmail(email)) as boolean;
+    setEmail(encodeURI(String(email)));
 
     exists === true
       ? router.push({ pathname: '/login', query: { email } })
