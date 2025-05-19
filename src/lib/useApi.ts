@@ -28,7 +28,18 @@ export const useFetch = <T>(url: string) => {
 
     const fetchData = async () => {
       try {
-        const response: Response = await fetch(url, { signal });
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const response: Response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Token ${token}` : '',
+          },
+          signal,
+        });
+
         if (!response.ok) throw new Error('Fehler beim laden der Daten');
         const result = await response.json();
         setState({ data: result, loading: false, error: null });
@@ -46,7 +57,7 @@ export const useFetch = <T>(url: string) => {
     };
   }, [url]);
 
-  return state;
+  return state.data;
 };
 
 /**
