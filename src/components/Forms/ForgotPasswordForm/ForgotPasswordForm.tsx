@@ -4,11 +4,26 @@ import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
 import { useEmailValidation } from '@/hooks/useEmailValidation';
 
+/**
+ * `ForgotPasswordForm` is a React functional component that renders a form
+ * allowing users to request a password reset via email. It validates the email
+ * and sends a request using the `resetPasswordRequest` function from the auth context.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} A styled form where users can enter their email to receive a reset link.
+ */
 const ForgotPasswordForm: React.FC = () => {
   const { showToast } = useToast();
   const { resetPasswordRequest } = useAuth();
   const { email, setEmail, isValid } = useEmailValidation();
 
+  /**
+   * Handles the form submission for requesting a password reset.
+   * Prevents the default form behavior and sends the request to the server.
+   *
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSendMail = async (e: React.FormEvent) => {
     e.preventDefault();
 

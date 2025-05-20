@@ -18,6 +18,22 @@ interface ContentContainerProps {
   genre: string;
 }
 
+/**
+ * `ContentContainer` renders a list of video previews filtered by genre.
+ * On hover, the preview image is replaced with an autoplaying muted video.
+ * Clicking on a video redirects the user to a dedicated video page.
+ *
+ * @component
+ *
+ * @param {Object} props - Component props
+ * @param {VideoData[]} props.data - Array of video objects containing metadata
+ * @param {string} props.genre - The genre used to filter the videos
+ *
+ * @returns {JSX.Element} A styled grid of video previews for the specified genre
+ *
+ * @example
+ * <ContentContainer data={videoList} genre="Action" />
+ */
 const ContentContainer = ({ data, genre }: ContentContainerProps) => {
   const filteredVideos = data.filter((video) => video.genre === genre);
   const router = useRouter();

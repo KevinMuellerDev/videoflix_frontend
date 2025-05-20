@@ -7,6 +7,15 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { useEmailValidation } from '@/hooks/useEmailValidation';
 
+/**
+ * LoginForm component renders a login form with email and password inputs.
+ * It manages form state, validation, and handles login logic.
+ *
+ * @param {object} props - Component props.
+ * @param {string} props.emailInput - Optional initial email to pre-fill the email input field.
+ *
+ * @returns {JSX.Element} The rendered login form component.
+ */
 const LoginForm = ({ emailInput }: { emailInput: string }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { email, setEmail, isValid } = useEmailValidation();
@@ -32,10 +41,12 @@ const LoginForm = ({ emailInput }: { emailInput: string }) => {
   }, [isValid, password]);
 
   /**
-   * The function `handleAuth` takes form data, logs in with the provided email and password, and
-   * redirects to the browse page if successful.
-   * @param {FormData} formData - The `formData` parameter is of type FormData, which is typically used
-   * to represent a set of key/value pairs representing form fields and their values.
+   * Handles form submission by attempting to log in with the provided email and password.
+   * On success, sets the logged-in state and redirects to the browse page.
+   * On failure, shows a toast with the error message.
+   *
+   * @param {FormData} formData - FormData object containing form values.
+   *   - expects 'password' field to be present.
    */
   const handleAuth = async (formData: FormData) => {
     const pass = formData.get('password');

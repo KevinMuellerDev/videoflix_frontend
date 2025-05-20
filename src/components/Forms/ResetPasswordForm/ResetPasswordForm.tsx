@@ -6,6 +6,19 @@ import { useRouter } from 'next/router';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
 
+/**
+ * Component for resetting the user's password using a uid and token from the URL query.
+ *
+ * Provides inputs for the new password and its confirmation, with toggleable visibility.
+ * Validates that both password fields match and disables the submit button accordingly.
+ * On successful reset, shows a toast message and redirects the user to the login page.
+ * On failure, displays the error message in a toast.
+ *
+ * Uses the `useAuth` hook for the password reset API call and `useToast` for notifications.
+ *
+ * @component
+ * @returns {JSX.Element} The reset password form.
+ */
 const ResetPasswordForm: React.FC = () => {
   const router = useRouter();
   const { resetPasswordConfirm } = useAuth();
@@ -37,6 +50,14 @@ const ResetPasswordForm: React.FC = () => {
     opacity: isDisabled ? 0.6 : 1,
   });
 
+  /**
+   * Toggles the visibility of the password or confirm password input field.
+   *
+   * Updates the `passwordVisibility` state by flipping the boolean value
+   * of the specified field (`showPassword` or `showConfirmPassword`).
+   *
+   * @param {'showPassword' | 'showConfirmPassword'} field - The field to toggle visibility for.
+   */
   const handleTogglePassword = (
     field: 'showPassword' | 'showConfirmPassword'
   ) => {
@@ -46,6 +67,17 @@ const ResetPasswordForm: React.FC = () => {
     }));
   };
 
+  /**
+   * Handles the form submission for resetting the password.
+   *
+   * Prevents the default form submission behavior, calls the password reset confirmation API
+   * with the uid, token, new password, and confirmation password.
+   * If the reset is successful, shows a success toast and redirects to the login page after 2 seconds.
+   * If the reset fails, shows an error message in a toast.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   * @returns {Promise<void>} A promise that resolves after handling the reset logic.
+   */
   const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await resetPasswordConfirm(
