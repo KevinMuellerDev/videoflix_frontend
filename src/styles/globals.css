@@ -181,6 +181,10 @@ h1 {
   animation: rotate 1s linear infinite;
 }
 
+.index-link {
+  overflow-wrap: break-word;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0);

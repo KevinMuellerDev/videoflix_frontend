@@ -22,13 +22,24 @@ const LoginForm = ({ emailInput }: { emailInput: string }) => {
   }, [email]);
 
   useEffect(() => {
+    if (emailInput && email === '') {
+      setEmail(emailInput);
+    }
+  }, [emailInput, email]);
+
+  useEffect(() => {
     setIsFormValid(!!isValid && password.length > 4);
   }, [isValid, password]);
 
+  /**
+   * The function `handleAuth` takes form data, logs in with the provided email and password, and
+   * redirects to the browse page if successful.
+   * @param {FormData} formData - The `formData` parameter is of type FormData, which is typically used
+   * to represent a set of key/value pairs representing form fields and their values.
+   */
   const handleAuth = async (formData: FormData) => {
     const pass = formData.get('password');
     const result = await login(email, pass as string);
-    console.log();
 
     if (result.success) {
       setIsLoggedIn(true);
@@ -51,7 +62,7 @@ const LoginForm = ({ emailInput }: { emailInput: string }) => {
             className="blankInputField"
             type="email"
             name="email"
-            value={emailInput}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             id="loginMail"
             aria-label="Login Email"

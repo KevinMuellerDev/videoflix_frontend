@@ -5,13 +5,17 @@ import { useEmailValidation } from '@/hooks/useEmailValidation';
 import { useRouter } from 'next/router';
 import { useToast } from '@/context/ToastContext';
 import { useCheckEmail } from '@/hooks/useCheckEmail';
+import { useAuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 
 const Start = () => {
   useBackground({ background: '/start-bg.webp' });
+  const { isLoggedIn, loading } = useAuthContext();
   const router = useRouter();
   const { showToast } = useToast();
   const { email, setEmail, isValid } = useEmailValidation();
+
+  if (!loading && isLoggedIn) router.push('/browse');
 
   const handleSignUp = async (formData: FormData) => {
     if (!isValid) {

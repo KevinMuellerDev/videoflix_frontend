@@ -19,6 +19,10 @@ const Header: React.FC = () => {
     }
   };
 
+  const redirectToBrowse = () => {
+    router.push('/browse');
+  };
+
   return (
     <header className={styles.wrapper}>
       <Link rel="stylesheet" href="/">
@@ -28,10 +32,20 @@ const Header: React.FC = () => {
         </picture>
       </Link>
 
-      {pathName !== '/login' && (
-        <button className="vfBtn" onClick={handleLogin}>
-          {!isLoggedIn ? 'Log in' : 'Log out'}
-        </button>
+      {pathName !== '/login' &&
+        pathName !== '/imprint' &&
+        pathName !== '/privacypolicy' && (
+          <button className="vfBtn" onClick={handleLogin}>
+            {!isLoggedIn ? 'Log in' : 'Log out'}
+          </button>
+        )}
+      {(pathName === '/imprint' || pathName === '/privacypolicy') && (
+        <img
+          src="/icons/arrow-left.png"
+          alt="return to browse"
+          className={styles.returnArrow}
+          onClick={redirectToBrowse}
+        />
       )}
     </header>
   );

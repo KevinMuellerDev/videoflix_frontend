@@ -23,7 +23,7 @@ const Login: React.FC = () => {
       </Head>
       <main className={mainStyles.mainContent}>
         <FormContainer formTitle="Log in">
-          <LoginForm email={email} />
+          <LoginForm emailInput={email} />
         </FormContainer>
       </main>
     </>

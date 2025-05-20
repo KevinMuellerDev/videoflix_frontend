@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import mainStyles from '@/pages/index.module.css';
 import styles from '@/pages/browse/index.module.css';
 import PreviewAction from '@/components/Browse/PreviewAction/PreviewAction';
 import ContentContainer from '@/components/Browse/ContentContainer/ContentContainer';
 import { useFetch } from '@/lib/useApi';
+import { useAuthContext } from '@/context/AuthContext';
+import { useRouter } from 'next/router';
 
 const Browse: React.FC = () => {
   type Video = {
@@ -17,6 +19,15 @@ const Browse: React.FC = () => {
     trailer: string;
     video_file: string;
   };
+
+  const router = useRouter();
+  const { isLoggedIn, loading } = useAuthContext();
+
+  useEffect(() => {
+    if (!loading && !isLoggedIn) {
+      router.push('/');
+    }
+  }, [loading, isLoggedIn, router]);
 
   const description =
     'In a high-security prison, a wrongly convicted man formulates a meticulous plan to break out and prove his innocence. He must navigate a web of alliances and betrayals to reclaim his freedom and expose the truth.';
@@ -68,25 +79,33 @@ const Browse: React.FC = () => {
         <title>Videoflix | Browse</title>
       </Head>
       <main className={mainStyles.browseContent}>
-        <div className={styles.preview}>
-          <img
-            className={styles.previewContent}
-            src="/dummypreview.png"
-            alt="preview"
-          />
-          <PreviewAction
-            title="Breakout"
-            description={description}
-            trailer={'/268290_tiny.mp4'}
-          />
-        </div>
-        <div className={styles.contentContainer}>
-          {uniqueGenres &&
-            videos !== null &&
-            uniqueGenres.map((genre) => (
-              <ContentContainer key={genre} genre={genre} data={videos} />
-            ))}
-        </div>
+        {!loading && isLoggedIn ? (
+          <>
+            <div className={styles.preview}>
+              <img
+                className={styles.previewContent}
+                src="/dummypreview.png"
+                alt="preview"
+              />
+              <PreviewAction
+                title="Breakout"
+                description={description}
+                trailer={'/268290_tiny.mp4'}
+              />
+            </div>
+            <div className={styles.contentContainer}>
+              {uniqueGenres &&
+                videos !== null &&
+                uniqueGenres.map((genre) => (
+                  <ContentContainer key={genre} genre={genre} data={testData} />
+                ))}
+            </div>
+          </>
+        ) : (
+          <p style={{ justifyContent: 'center' }} className="loader">
+            Checking...
+          </p>
+        )}
       </main>
     </>
   );
