@@ -4,7 +4,7 @@ import useBackground from '@/hooks/useBackground';
 import { useEmailValidation } from '@/hooks/useEmailValidation';
 import { useRouter } from 'next/router';
 import { useToast } from '@/context/ToastContext';
-import { useCheckEmail } from '@/hooks/useCheckEmail';
+import { checkEmailExists } from '@/hooks/checkEmailExists';
 import { useAuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 
@@ -22,7 +22,7 @@ const Start = () => {
       showToast('Bitte gebe eine richtige Email Adresse ein.');
       return;
     }
-    const exists = (await useCheckEmail(email)) as boolean;
+    const exists = (await checkEmailExists(email)) as boolean;
     setEmail(encodeURI(String(email)));
 
     exists === true

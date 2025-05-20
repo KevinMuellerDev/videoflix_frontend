@@ -6,6 +6,13 @@ import LoginForm from '@/components/Forms/LoginForm/LoginForm';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+/**
+ * Login Page
+ *
+ * Renders the login form with a themed background image.
+ * If an email is provided in the URL query parameters, it is prefilled in the form.
+ * Sets the appropriate page title and wraps content in a consistent form layout.
+ */
 const Login: React.FC = () => {
   useBackground({ background: '/login-bg.webp' });
   const [email, setEmail] = useState('');

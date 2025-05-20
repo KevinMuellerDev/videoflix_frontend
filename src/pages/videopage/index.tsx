@@ -3,9 +3,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from '@/pages/videopage/index.module.css';
 
+/**
+ * Next.js page that renders a video player for the given video source URL.
+ *
+ * - Extracts the `src` query parameter from the router and passes it to the VideoPlayer component.
+ * - Provides a back navigation to the /browse page via a clickable arrow icon.
+ * - Displays a loading message until the video URL is available.
+ *
+ * URL Parameter:
+ * @query {string} src - The URL of the video to be played (e.g., HLS `.m3u8` stream).
+ *
+ * @returns {JSX.Element} The video player page.
+ */
 const VideoPage = () => {
-  // const videoUrl =
-  //   'http://127.0.0.1:8000/media/videos/167404-836755033_small_hls/master.m3u8'; // Pfad zu deiner generierten HLS-Datei
   const router = useRouter();
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
 

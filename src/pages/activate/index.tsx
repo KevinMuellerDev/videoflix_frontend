@@ -7,6 +7,20 @@ import mainStyles from '@/pages/index.module.css';
 import useBackground from '@/hooks/useBackground';
 import Head from 'next/head';
 
+/**
+ * Activate Page
+ *
+ * Handles user account activation by sending uid and token parameters
+ * from the URL query to the backend activation endpoint.
+ * - If activation succeeds, redirects the user to the login page.
+ * - If activation fails, shows a toast notification and redirects to the home page after 3 seconds.
+ * - Displays a loading message while the activation check is in progress.
+ *
+ * Uses:
+ * - Next.js useRouter for query parameters and navigation
+ * - useToast for user notifications
+ * - useBackground to set a background image
+ */
 const Activate = () => {
   const router = useRouter();
   const { uid, token } = router.query;

@@ -8,6 +8,20 @@ import { useFetch } from '@/lib/useApi';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRouter } from 'next/router';
 
+/**
+ * Browse Page
+ *
+ * Displays a categorized video browsing interface for authenticated users.
+ * - Redirects unauthenticated users to the home page.
+ * - Fetches video data from the backend.
+ * - Groups videos by genre and displays them in genre-specific content sections.
+ * - Includes a preview section for a featured video.
+ *
+ * Dependencies:
+ * - useAuthContext: Checks authentication status.
+ * - useFetch: Custom hook to retrieve video data from API.
+ * - PreviewAction, ContentContainer: Custom components to display video previews and genre groupings.
+ */
 const Browse: React.FC = () => {
   type Video = {
     id: number;

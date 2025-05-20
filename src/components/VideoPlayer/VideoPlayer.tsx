@@ -1,22 +1,37 @@
 import { useEffect, useRef } from 'react';
+import { useToast } from '@/context/ToastContext';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-quality-levels';
 import 'videojs-hls-quality-selector';
-import styles from '@/components/VideoPlayer/VideoPlayer.module.css';
 
 interface VideoPlayerProps {
   src: string | null;
 }
 
+/**
+ * React component that renders a Video.js player with HLS support.
+ *
+ * Initializes the player when a source is provided, enables quality selection,
+ * and displays toast notifications when the user changes the video quality.
+ * Also handles responsive resizing and cleans up the player on unmount.
+ *
+ * @param {string | null} src - The video source URL (must be HLS-compatible, e.g. .m3u8).
+ */
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (!src) return;
 
-    // Initialisierung verzögert, um sicherzustellen, dass das Video im DOM ist
+    /**
+     * Initializes the Video.js player on the referenced video element with HLS support,
+     * sets up the quality selector plugin to display the current quality,
+     * and listens for user-initiated quality changes to show a toast notification
+     * with the selected video resolution and bitrate. Ignores the initial automatic change event.
+     */
     const setupPlayer = () => {
       if (videoRef.current && !playerRef.current) {
         playerRef.current = videojs(videoRef.current, {
@@ -28,7 +43,7 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
           sources: [
             {
               src,
-              type: 'video/mp4',
+              type: 'application/x-mpegURL',
             },
           ],
         });
@@ -36,6 +51,31 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
         playerRef.current.ready(() => {
           playerRef.current?.hlsQualitySelector?.({
             displayCurrentQuality: true,
+          });
+
+          const qualityLevels = playerRef.current.qualityLevels();
+
+          let changeEventCount = 0;
+
+          qualityLevels.on('change', () => {
+            changeEventCount++;
+            if (changeEventCount === 1) {
+              return;
+            }
+
+            const activeLevel = Array.from({ length: qualityLevels.length })
+              .map((_, i) => qualityLevels[i])
+              .find((level) => level.enabled);
+
+            if (activeLevel) {
+              showToast(
+                `🎞️ Aktive Qualität: ${activeLevel.height}p - ${Math.round(
+                  activeLevel.bitrate / 1000
+                )} kbps`
+              );
+            } else {
+              showToast('⚠️ Keine aktive Qualität gefunden.');
+            }
           });
         });
       }

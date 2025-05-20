@@ -5,6 +5,13 @@ import React from 'react';
 import mainStyles from '@/pages/index.module.css';
 import Head from 'next/head';
 
+/**
+ * Forgot Password Page
+ *
+ * Displays a form allowing users to request a password reset link.
+ * Applies a themed background and sets the page title.
+ * Wraps the form in a reusable layout container.
+ */
 const ForgotPassword: React.FC = () => {
   useBackground({ background: '/login-bg.webp' });
   return (

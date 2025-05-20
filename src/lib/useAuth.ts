@@ -1,9 +1,32 @@
 // lib/useAuth.ts
 import { API_BASE_URL } from '@/config';
-import { error } from 'console';
 
+/**
+ * Custom hook providing authentication-related functions for login,
+ * sign-up, password reset request, and password reset confirmation.
+ *
+ * Each function interacts with the backend API and returns
+ * a standardized result object indicating success or failure,
+ * along with error or success messages.
+ *
+ * Functions:
+ * - login(email, password): Authenticate user and store auth token.
+ * - signUp(email, password, re_password): Register a new user.
+ * - resetPasswordConfirm(uid, token, newPassword, confirmPassword): Confirm password reset.
+ * - resetPasswordRequest(email): Request a password reset email.
+ *
+ * @returns {object} An object containing auth functions.
+ */
 export const useAuth = () => {
-  // Login-Funktion
+  /**
+   * Attempts to log in a user with the provided email and password.
+   * On success, saves the auth token to localStorage.
+   *
+   * @param {string} email - The user's email address.
+   * @param {string} password - The user's password.
+   * @returns {Promise<{success: boolean, error?: string}>} Result of the login attempt.
+   */
+
   const login = async (email: string, password: string) => {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/token/login/`, {
@@ -47,7 +70,14 @@ export const useAuth = () => {
     }
   };
 
-  // Funktion zum Registrieren
+  /**
+   * Registers a new user with the given email and password.
+   *
+   * @param {string} email - The email address for registration.
+   * @param {string} password - The password for registration.
+   * @param {string} re_password - Confirmation of the password.
+   * @returns {Promise<{success: boolean, error?: string}>} Result of the registration attempt.
+   */
   const signUp = async (
     email: string,
     password: string,
@@ -92,7 +122,15 @@ export const useAuth = () => {
     }
   };
 
-  // Funktion für die Bestätigung der Passwortzurücksetzung
+  /**
+   * Confirms a password reset using UID and token, setting a new password.
+   *
+   * @param {string} uid - User identifier.
+   * @param {string} token - Password reset token.
+   * @param {string} newPassword - New password to set.
+   * @param {string} confirmPassword - Confirmation of the new password.
+   * @returns {Promise<{success: boolean, message: string}>} Result of the password reset confirmation.
+   */
   const resetPasswordConfirm = async (
     uid: string,
     token: string,
@@ -129,7 +167,12 @@ export const useAuth = () => {
     }
   };
 
-  // Funktion für die anforderung der Passwortzurücksetzung
+  /**
+   * Requests a password reset email to be sent to the provided email address.
+   *
+   * @param {string} email - Email address to send the reset instructions.
+   * @returns {Promise<{success: boolean, message: string}>} Result of the reset password request.
+   */
   const resetPasswordRequest = async (email: string) => {
     try {
       const res = await fetch(`${API_BASE_URL}/auth/users/reset_password/`, {
