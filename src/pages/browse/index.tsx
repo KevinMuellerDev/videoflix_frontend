@@ -111,7 +111,7 @@ const Browse: React.FC = () => {
               {uniqueGenres &&
                 videos !== null &&
                 uniqueGenres.map((genre) => (
-                  <ContentContainer key={genre} genre={genre} data={testData} />
+                  <ContentContainer key={genre} genre={genre} data={videos} />
                 ))}
             </div>
           </>

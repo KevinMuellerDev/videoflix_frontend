@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useToast } from '@/context/ToastContext';
 import videojs from 'video.js';
-import 'video.js/dist/video-js.css';
-import 'videojs-contrib-quality-levels';
-import 'videojs-hls-quality-selector';
 
 interface VideoPlayerProps {
   src: string | null;

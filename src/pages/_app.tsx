@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import '@/styles/fonts.css';
+import '@/config/video-setup';
 import type { AppProps } from 'next/app';
 import Header from '@/components/Header/header';
 import Footer from '@/components/Footer/Footer';

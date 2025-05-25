@@ -68,6 +68,7 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
             onClick={() => redirectToVideo(vid.video_file)}
             style={{ position: 'relative', overflow: 'hidden' }}
           >
+            <span className={styles.vidTitle}>{vid.title}</span>
             {/* Hintergrundbild */}
             <img
               src={vid.screenshot}
@@ -81,12 +82,7 @@ const ContentContainer = ({ data, genre }: ContentContainerProps) => {
             />
 
             {/* Video-Element */}
-            <video
-              src={vid.video_file}
-              muted
-              loop
-              className={styles.hoverVideo}
-            />
+            <video src={vid.trailer} muted loop className={styles.hoverVideo} />
             {vid.title}
           </div>
         ))}

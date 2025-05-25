@@ -13,7 +13,7 @@
 
 .contentContainer {
   z-index: 100;
-  padding-top: 37.5rem;
+  padding-top: 12.5rem;
 }
 
 @media (width<=932px) {

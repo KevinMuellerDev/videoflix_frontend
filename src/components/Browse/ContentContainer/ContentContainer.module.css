@@ -51,3 +51,16 @@
   transition: opacity 0.3s ease;
   z-index: 1;
 }
+
+.vidTitle {
+  position: absolute;
+  font-weight: 400;
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+  top: 80%;
+  left: 10%;
+  z-index: 9999;
+}
