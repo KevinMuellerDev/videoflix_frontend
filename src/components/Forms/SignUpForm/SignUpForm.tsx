@@ -4,10 +4,12 @@ import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { useAuth } from '@/lib/useAuth';
 import { useToast } from '@/context/ToastContext';
 import { useEmailValidation } from '@/hooks/useEmailValidation';
+import { useRouter } from 'next/router';
 
 const SignUpForm = ({ emailInput }: { emailInput: string }) => {
   const { email, setEmail, isValid } = useEmailValidation();
   const [isFormValid, setIsFormValid] = useState(false);
+  const router = useRouter();
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     showPassword: false,
@@ -61,6 +63,7 @@ const SignUpForm = ({ emailInput }: { emailInput: string }) => {
 
     if (result.success) {
       showToast('Erfolgreich registriert! Bitte überprüfe deine E-Mails.');
+      router.push('/login');
     } else {
       showToast(`Registrierung fehlgeschlagen: ${result.error}`);
     }
