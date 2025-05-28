@@ -1,7 +1,11 @@
 
 # 🎬 VideoFlix Frontend – Next.js Video Plattform
 
-VideoFlix Frontend ist eine moderne React-basierte Webanwendung, die mit Next.js entwickelt wurde. Sie dient als Benutzeroberfläche zur Anzeige, Suche und Verwaltung von Videos, die vom VideoFlix Backend bereitgestellt werden.
+VideoFlix Frontend ist eine moderne Web-App, die mit Next.js und React entwickelt wurde. Sie bildet die Benutzeroberfläche für die VideoFlix-Plattform und bietet alles, was man von einem Netflix-Klon erwartet:
+
+Nutzer können sich registrieren, einloggen, ihr Passwort zurücksetzen und durch eine übersichtliche Videobibliothek stöbern. In der Browse-Ansicht laufen automatisch Trailer ab, wenn das hochgeladene Video lang genug ist.
+
+Die Videos werden im HLS-Format gestreamt, was nicht nur flüssig läuft, sondern auch verschiedene Qualitätsstufen erlaubt. Der integrierte Player lässt sich auf Vollbild umschalten und sorgt so für ein echtes Streaming-Erlebnis.
 
 ---
 
@@ -19,9 +23,8 @@ VideoFlix Frontend ist eine moderne React-basierte Webanwendung, die mit Next.js
 
 - Next.js (React Framework)
 - React Hooks & Context API
-- CSS Module / Styled Components (je nach Implementierung)
-- Axios für API-Anfragen
-
+- CSS Module
+- Fetch Library
 ---
 
 ## ⚠️ Voraussetzungen
@@ -63,25 +66,39 @@ VideoFlix Frontend ist eine moderne React-basierte Webanwendung, die mit Next.js
 
 ---
 
-## 📄 API-Dokumentation
-
-Das Frontend kommuniziert mit dem VideoFlix Backend, das eine REST-API bereitstellt. Die vollständige API-Dokumentation findest du hier:  
-🔗 [https://app.swaggerhub.com/apis-docs/selfemployed-50f/videoflix/1.0.1](https://app.swaggerhub.com/apis-docs/selfemployed-50f/videoflix/1.0.1)
-
----
-
-
-## 📁 Projektstruktur (Beispiel)
-
+## 📁 Projektstruktur
 ```
 videoflix_frontend/
 │
-├── components/       # Wiederverwendbare React-Komponenten
-├── pages/            # Next.js Seiten und API-Routen
-├── public/           # Öffentliche Assets (Bilder, Icons, etc.)
-├── styles/           # CSS / Styling
-├── package.json      # npm/Yarn Konfiguration
-└── README.md         # Projektbeschreibung
+├───components
+│   ├───Browse
+│   │   ├───ContentContainer
+│   │   └───PreviewAction
+│   ├───Footer
+│   ├───FormContainer
+│   ├───Forms
+│   │   ├───ForgotPasswordForm
+│   │   ├───LoginForm
+│   │   ├───ResetPasswordForm
+│   │   └───SignUpForm
+│   ├───Header
+│   ├───Toast
+│   └───VideoPlayer
+├───config
+├───context
+├───hooks
+├───lib
+├───pages
+│   ├───activate
+│   ├───browse
+│   ├───forgotpassword
+│   ├───imprint
+│   ├───login
+│   ├───privacypolicy
+│   ├───resetpassword
+│   ├───signup
+│   └───videopage
+└───styles
 ```
 
 ## 📬 Kontakt
