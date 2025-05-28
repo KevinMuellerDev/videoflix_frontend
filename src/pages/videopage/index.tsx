@@ -2,6 +2,7 @@ import VideoPlayer from '@/components/VideoPlayer/VideoPlayer';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from '@/pages/videopage/index.module.css';
+import Head from 'next/head';
 
 /**
  * Next.js page that renders a video player for the given video source URL.
@@ -33,20 +34,25 @@ const VideoPage = () => {
   };
 
   return (
-    <div className={styles.background}>
-      <img
-        src="/icons/arrow-left.png"
-        alt="return to browse"
-        className={styles.returnArrow}
-        onClick={redirectToBrowse}
-      />
+    <>
+      <Head>
+        <title>Videoflix | Streaming </title>
+      </Head>
+      <div className={styles.background}>
+        <img
+          src="/icons/arrow-left.png"
+          alt="return to browse"
+          className={styles.returnArrow}
+          onClick={redirectToBrowse}
+        />
 
-      {videoUrl ? (
-        <VideoPlayer src={videoUrl} />
-      ) : (
-        <p className="loader">Loading video...</p>
-      )}
-    </div>
+        {videoUrl ? (
+          <VideoPlayer src={videoUrl} />
+        ) : (
+          <p className="loader">Loading video...</p>
+        )}
+      </div>
+    </>
   );
 };
 

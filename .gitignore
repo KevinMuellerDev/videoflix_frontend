@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+hls_convert.ps1
 
 # debug
 npm-debug.log*
