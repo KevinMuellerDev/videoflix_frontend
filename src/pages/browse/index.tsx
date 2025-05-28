@@ -82,7 +82,6 @@ const Browse: React.FC = () => {
   ];
 
   const videos: Video[] | null = useFetch('http://127.0.0.1:8000/api/videos/');
-  console.log(videos);
 
   const uniqueGenres =
     videos !== null ? [...new Set(videos.map((video) => video.genre))] : null;

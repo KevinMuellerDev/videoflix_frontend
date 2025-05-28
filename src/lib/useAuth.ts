@@ -1,5 +1,5 @@
 // lib/useAuth.ts
-import { API_BASE_URL } from '@/config';
+import { API_AUTH_URL, API_BASE_URL } from '@/config';
 
 /**
  * Custom hook providing authentication-related functions for login,
@@ -29,7 +29,7 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/token/login/`, {
+      const response = await fetch(`${API_AUTH_URL}token/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,6 @@ export const useAuth = () => {
           : [String(messages)];
 
         const errMessage = messagesArray.join('\n \n');
-        console.log(errMessage);
 
         return {
           success: false,
@@ -84,7 +83,7 @@ export const useAuth = () => {
     re_password: string
   ) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/users/`, {
+      const response = await fetch(`${API_AUTH_URL}users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +106,6 @@ export const useAuth = () => {
           : [String(messages)];
 
         const errMessage = messagesArray.join('\n \n');
-        console.log(errMessage);
 
         return {
           success: false,
@@ -138,19 +136,16 @@ export const useAuth = () => {
     confirmPassword: string
   ) => {
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/auth/users/reset_password_confirm/`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            uid,
-            token,
-            new_password: newPassword,
-            confirm_password: confirmPassword,
-          }),
-        }
-      );
+      const res = await fetch(`${API_AUTH_URL}users/reset_password_confirm/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uid,
+          token,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
+        }),
+      });
 
       if (res.ok) {
         return { success: true, message: 'Password reset successful.' };
@@ -175,7 +170,7 @@ export const useAuth = () => {
    */
   const resetPasswordRequest = async (email: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/users/reset_password/`, {
+      const res = await fetch(`${API_AUTH_URL}users/reset_password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

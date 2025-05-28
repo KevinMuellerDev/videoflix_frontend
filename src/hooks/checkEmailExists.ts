@@ -1,4 +1,3 @@
-import React from 'react';
 import { API_CHECK_MAIL_URL } from '@/config';
 
 /**

@@ -33,7 +33,7 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
       if (videoRef.current && !playerRef.current) {
         playerRef.current = videojs(videoRef.current, {
           controls: true,
-          autoplay: false,
+          autoplay: true,
           preload: 'auto',
           width: window.innerWidth,
           height: window.innerHeight,
