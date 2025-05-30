@@ -1,112 +1,115 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Hls from 'hls.js';
 import { useToast } from '@/context/ToastContext';
-import videojs from 'video.js';
 
 interface VideoPlayerProps {
   src: string | null;
 }
 
-/**
- * React component that renders a Video.js player with HLS support.
- *
- * Initializes the player when a source is provided, enables quality selection,
- * and displays toast notifications when the user changes the video quality.
- * Also handles responsive resizing and cleans up the player on unmount.
- *
- * @param {string | null} src - The video source URL (must be HLS-compatible, e.g. .m3u8).
- */
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const playerRef = useRef<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+  const [levels, setLevels] = useState<Hls.Level[]>([]);
+  const [currentLevel, setCurrentLevel] = useState<number>(-1);
   const { showToast } = useToast();
 
   useEffect(() => {
     if (!src) return;
 
-    /**
-     * Initializes the Video.js player on the referenced video element with HLS support,
-     * sets up the quality selector plugin to display the current quality,
-     * and listens for user-initiated quality changes to show a toast notification
-     * with the selected video resolution and bitrate. Ignores the initial automatic change event.
-     */
-    const setupPlayer = () => {
-      if (videoRef.current && !playerRef.current) {
-        playerRef.current = videojs(videoRef.current, {
-          controls: true,
-          autoplay: true,
-          preload: 'auto',
-          width: window.innerWidth,
-          height: window.innerHeight,
-          sources: [
-            {
-              src,
-              type: 'application/x-mpegURL',
-            },
-          ],
-        });
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hlsRef.current = hls;
 
-        playerRef.current.ready(() => {
-          playerRef.current?.hlsQualitySelector?.({
-            displayCurrentQuality: true,
-          });
+      hls.loadSource(src);
+      hls.attachMedia(videoRef.current!);
 
-          const qualityLevels = playerRef.current.qualityLevels();
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        setLevels(hls.levels);
+        setCurrentLevel(hls.currentLevel);
+        videoRef.current?.play();
+      });
 
-          let changeEventCount = 0;
+      hls.on(Hls.Events.LEVEL_SWITCHED, (_, data) => {
+        setCurrentLevel(data.level);
+      });
 
-          qualityLevels.on('change', () => {
-            changeEventCount++;
-            if (changeEventCount === 1) {
-              return;
-            }
-
-            const activeLevel = Array.from({ length: qualityLevels.length })
-              .map((_, i) => qualityLevels[i])
-              .find((level) => level.enabled);
-
-            if (activeLevel) {
-              showToast(
-                `🎞️ Aktive Qualität: ${activeLevel.height}p - ${Math.round(
-                  activeLevel.bitrate / 1000
-                )} kbps`
-              );
-            } else {
-              showToast('⚠️ Keine aktive Qualität gefunden.');
-            }
-          });
-        });
-      }
-    };
-
-    requestAnimationFrame(setupPlayer);
-
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose();
-        playerRef.current = null;
-      }
-    };
+      return () => {
+        hls.destroy();
+        hlsRef.current = null;
+      };
+    } else if (videoRef.current?.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari Fallback
+      videoRef.current.src = src;
+      videoRef.current.addEventListener('loadedmetadata', () => {
+        videoRef.current?.play();
+      });
+    }
   }, [src]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      playerRef.current?.width(window.innerWidth);
-      playerRef.current?.height(window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const onQualityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const level = Number(e.target.value);
+    if (hlsRef.current) {
+      hlsRef.current.currentLevel = level;
+      const label =
+        level === -1 ? 'Auto' : `${hlsRef.current.levels[level].height}p`;
+      showToast(`🎞 Qualität geändert: ${label}`);
+    }
+    setCurrentLevel(level);
+  };
 
   return (
-    <div data-vjs-player>
-      {src && (
-        <video
-          ref={videoRef}
-          controls
-          playsInline
-          className="video-js vjs-play-centered"
-        />
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+      }}
+    >
+      <video
+        ref={videoRef}
+        controls
+        style={{
+          width: '100%',
+          height: 'auto',
+          maxHeight: '100%',
+          display: 'block',
+        }}
+      />
+      {levels.length > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '16px', // ca. auf Höhe der Player Controls
+            right: '16px', // anpassen für deine Controls / Lautstärke-Button
+            zIndex: 10,
+          }}
+        >
+          <select
+            value={currentLevel}
+            onChange={onQualityChange}
+            style={{
+              backgroundColor: 'transparent',
+              color: 'white',
+              border: '0px solid transparent',
+              padding: '4px 8px',
+              fontSize: '14px',
+              cursor: 'pointer',
+              outline: 'none',
+              boxShadow: 'none',
+            }}
+          >
+            <option value={-1}>Auto</option>
+            {levels.map((level, i) => (
+              <option key={i} value={i}>
+                {level.height}p
+              </option>
+            ))}
+          </select>
+        </div>
       )}
     </div>
   );

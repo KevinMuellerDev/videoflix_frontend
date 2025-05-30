@@ -62,8 +62,12 @@ const SignUpForm = ({ emailInput }: { emailInput: string }) => {
     const result = await signUp(email, password, confirmPassword);
 
     if (result.success) {
-      showToast('Erfolgreich registriert! Bitte überprüfe deine E-Mails.');
-      router.push('/login');
+      showToast(
+        'Erfolgreich registriert! Bitte überprüfe deine E-Mails. Du wirst gleich weitergeleitet...'
+      );
+      setTimeout(() => {
+        router.push('/login');
+      }, 4000);
     } else {
       showToast(`Registrierung fehlgeschlagen: ${result.error}`);
     }

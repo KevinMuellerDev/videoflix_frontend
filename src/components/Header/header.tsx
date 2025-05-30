@@ -26,9 +26,10 @@ const Header: React.FC = () => {
 
   const handleLogin = () => {
     if (isLoggedIn) {
-      router.push('/');
       localStorage.setItem('isLoggedIn', 'false');
+      localStorage.removeItem('token');
       setIsLoggedIn(false);
+      router.push('/');
     } else {
       router.push('/login');
     }

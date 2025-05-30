@@ -12,12 +12,14 @@
     "export": "next export"
   },
   "dependencies": {
+    "hls.js": "^1.6.3",
     "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "video.js": "^8.22.0",
     "videojs-contrib-quality-levels": "^4.1.0",
-    "videojs-hls-quality-selector": "^2.0.0"
+    "videojs-hls-quality-selector": "^2.0.0",
+    "videojs-http-source-selector": "^1.1.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -25,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/video.js": "^7.3.58",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "eslint-config-prettier": "^10.1.1",
