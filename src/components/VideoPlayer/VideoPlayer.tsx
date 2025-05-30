@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Hls from 'hls.js';
+import Hls, { Level } from 'hls.js';
 import { useToast } from '@/context/ToastContext';
 
 interface VideoPlayerProps {
@@ -9,7 +9,7 @@ interface VideoPlayerProps {
 const VideoPlayer = ({ src }: VideoPlayerProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
-  const [levels, setLevels] = useState<Hls.Level[]>([]);
+  const [levels, setLevels] = useState<Level[]>([]);
   const [currentLevel, setCurrentLevel] = useState<number>(-1);
   const { showToast } = useToast();
 
@@ -83,8 +83,8 @@ const VideoPlayer = ({ src }: VideoPlayerProps) => {
         <div
           style={{
             position: 'absolute',
-            top: '16px', // ca. auf Höhe der Player Controls
-            right: '16px', // anpassen für deine Controls / Lautstärke-Button
+            top: '16px',
+            right: '16px',
             zIndex: 10,
           }}
         >
