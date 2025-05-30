@@ -1,25 +1,25 @@
 
 # 🎬 VideoFlix Frontend – Next.js Video Plattform
 
-VideoFlix Frontend ist eine moderne Web-App, die mit Next.js und React entwickelt wurde. Sie bildet die Benutzeroberfläche für die VideoFlix-Plattform und bietet alles, was man von einem Netflix-Klon erwartet:
+VideoFlix Frontend is a modern web app developed with Next.js and React. It forms the user interface for the VideoFlix platform and offers everything you would expect from a Netflix clone:
 
-Nutzer können sich registrieren, einloggen, ihr Passwort zurücksetzen und durch eine übersichtliche Videobibliothek stöbern. In der Browse-Ansicht laufen automatisch Trailer ab, wenn das hochgeladene Video lang genug ist.
+Users can register, log in, reset their password and browse through a well-organized video library. Trailers run automatically in the browse view if the uploaded video is long enough.
 
-Die Videos werden im HLS-Format gestreamt, was nicht nur flüssig läuft, sondern auch verschiedene Qualitätsstufen erlaubt. Der integrierte Player lässt sich auf Vollbild umschalten und sorgt so für ein echtes Streaming-Erlebnis.
+The videos are streamed in HLS format, which not only runs smoothly but also allows different quality levels. The integrated player can be switched to full screen for a real streaming experience.
 
 ---
 
 ## 🚀 Features
 
-- Anzeige von Videos, Trailern & Screenshots
-- Benutzerregistrierung, Login und Profilverwaltung
-- Genre-basierte Video-Kategorisierung und Suche
-- Responsive Design für Desktop und Mobile
-- Kommunikation mit VideoFlix Backend über REST-API
+- Display of videos, trailers & screenshots
+- User registration, login and profile management
+- Genre-based video categorization and search
+- Responsive design for desktop and mobile
+- Communication with VideoFlix backend via REST API
 
 ---
 
-## 🛠️ Technologien
+## 🛠️ Technologies
 
 - Next.js (React Framework)
 - React Hooks & Context API
@@ -27,24 +27,24 @@ Die Videos werden im HLS-Format gestreamt, was nicht nur flüssig läuft, sonder
 - Fetch Library
 ---
 
-## ⚠️ Voraussetzungen
+## ⚠️ Prerequisites
 
-- Node.js 16+ und npm oder yarn
-- VideoFlix Backend (muss separat installiert und gestartet werden)  
+- Node.js 16+ and npm or yarn
+- VideoFlix backend (must be installed and started separately)
   🔗 [https://github.com/KevinMuellerDev/videoflix_backend](https://github.com/KevinMuellerDev/videoflix_backend)
 
 ---
 
-## 🚀 Installation und Start
+## 🚀 Installation and Start
 
-1. Repository klonen:
+1. Clone repository:
 
     ```bash
     git clone https://github.com/KevinMuellerDev/videoflix_frontend.git
     cd videoflix_frontend
     ```
 
-2. Abhängigkeiten installieren:
+2. Install dependencies:
 
     ```bash
     npm install
@@ -52,7 +52,7 @@ Die Videos werden im HLS-Format gestreamt, was nicht nur flüssig läuft, sonder
     yarn install
     ```
 
-3. Entwicklungsserver starten:
+3. Run development Server:
 
     ```bash
     npm run dev
@@ -60,13 +60,13 @@ Die Videos werden im HLS-Format gestreamt, was nicht nur flüssig läuft, sonder
     yarn dev
     ```
 
-4. App im Browser öffnen:
+4. Open app in browser:
 
     [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📁 Projektstruktur
+## 📁 Project structure
 ```
 videoflix_frontend/
 │
@@ -101,9 +101,9 @@ videoflix_frontend/
 └───styles
 ```
 
-## 📬 Kontakt
+## 📬 Contact
 
-Bei Fragen oder Beiträgen erreichst du mich unter:  
+If you have any questions or contributions, you can reach me at:  
 **info@kevin-mueller-dev.de**
 
 ---
